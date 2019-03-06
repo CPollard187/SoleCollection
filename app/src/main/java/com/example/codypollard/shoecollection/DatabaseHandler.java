@@ -98,7 +98,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * UPDATE
      */
-
+    public int updateShoe(Shoe shoe){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, shoe.getName());
+        values.put(COLUMN_DESCRIPTION, shoe.getDescription());
+        values.put(COLUMN_COLOURWAY, shoe.getColourWay());
+        values.put(COLUMN_CONDITION, shoe.getCondition());
+        values.put(COLUMN_RETAILPRICE, shoe.getRetailPrice());
+        return db.update(TABLE_SHOES, values, COLUMN_ID + "=?",
+                new String[]{String.valueOf(shoe.getId())});
+    }
 
 
     /**
