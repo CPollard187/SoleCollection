@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Create the name of our tables
      */
 
-    public static final String TABLE_SHOES = "location";
+    public static final String TABLE_SHOES = "shoe";
     /**
      * CREATE column names
      */
@@ -40,6 +40,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_BRAND = "brand";
+    public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_COLOURWAY = "colourway";
     public static final String COLUMN_CONDITION = "condition";
@@ -52,6 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String CREATE_SHOE_TABLE = "CREATE TABLE " +
             TABLE_SHOES + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
             + COLUMN_NAME + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,"
+            + COLUMN_BRAND + " TEXT, " + COLUMN_TYPE + " TEXT,"
             + COLUMN_COLOURWAY + " TEXT, " + COLUMN_CONDITION + " TEXT,"
             + COLUMN_RETAILPRICE + " TEXT)";
 
@@ -82,6 +85,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, shoe.getName());
+        values.put(COLUMN_BRAND, shoe.getBrand());
+        values.put(COLUMN_TYPE, shoe.getType());
         values.put(COLUMN_DESCRIPTION, shoe.getDescription());
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
@@ -97,7 +102,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Shoe shoe = null;
         Cursor cursor = db.query(TABLE_SHOES,
-                new String[]{COLUMN_ID, COLUMN_NAME,
+                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_BRAND, COLUMN_TYPE,
                         COLUMN_DESCRIPTION,COLUMN_COLOURWAY,COLUMN_CONDITION,COLUMN_RETAILPRICE},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)},
@@ -110,7 +115,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getString(5));
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7));
         }
         db.close();
         return shoe;
@@ -129,7 +136,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
-                        cursor.getString(5)));
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7)));
             }while(cursor.moveToNext());
         }
         db.close();
@@ -143,6 +152,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, shoe.getName());
+        values.put(COLUMN_BRAND, shoe.getBrand());
+        values.put(COLUMN_TYPE, shoe.getType());
         values.put(COLUMN_DESCRIPTION, shoe.getDescription());
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
