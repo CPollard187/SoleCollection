@@ -1,12 +1,17 @@
 package com.example.codypollard.shoecollection;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
 
 /**
@@ -64,7 +69,35 @@ public class AddAShoeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_ashoe, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_ashoe, container, false);
+
+        final EditText brands = view.findViewById(R.id.brandEdit);
+        final EditText type = view.findViewById(R.id.typeEdit);
+        final EditText name = view.findViewById(R.id.nameEdit);
+        final EditText description = view.findViewById(R.id.descriptionEdit);
+        final EditText colourway = view.findViewById(R.id.colourwayEdit);
+        final EditText condition = view.findViewById(R.id.conditionEdit);
+        final EditText retailPrice = view.findViewById(R.id.retailEdit);
+        Button createButton = view.findViewById(R.id.createButton);
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Shoe shoe = new Shoe(name.getText().toString(),
+                        description.getText().toString(), type.getText().toString(),
+                        colourway.getText().toString(), brands.getText().toString(),
+                        condition.getText().toString(), retailPrice.getText().toString()
+                        );
+                //Get access to the database
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                //Call the addShoe function
+                //Populates the db with the info from the form
+                db.addShoe(shoe);
+                db.close();
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
