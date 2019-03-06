@@ -93,7 +93,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * READ OPERATIONS
      */
+    public Shoe getShoe(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Shoe shoe = null;
+        Cursor cursor = db.query(TABLE_SHOES,
+                new String[]{COLUMN_ID, COLUMN_NAME,
+                        COLUMN_DESCRIPTION,COLUMN_COLOURWAY,COLUMN_CONDITION,COLUMN_RETAILPRICE},
+                COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null,null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            shoe = new Shoe(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5));
+        }
+        db.close();
+        return shoe;
+    }
 
+    public ArrayList<Shoe> getAllLocations(){
+        ArrayList<Shoe> shoeList = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_SHOES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                shoeList.add(new Shoe(
+                        Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5)));
+            }while(cursor.moveToNext());
+        }
+        db.close();
+        return shoeList;
+    }
 
     /**
      * UPDATE
