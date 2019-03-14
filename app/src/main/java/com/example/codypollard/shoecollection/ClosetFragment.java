@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +67,50 @@ public class ClosetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_closet, container, false);
+        View view = inflater.inflate(R.layout.fragment_closet, container, false);
+        final ViewPager viewPager = view.findViewById(R.id.shoeViewPager);
+        final ShoeViewPagerAdapter adapter = new ShoeViewPagerAdapter(getFragmentManager());
+        viewPager.setAdapter(adapter);
+        return view;
+    }
+
+    class ShoeViewPagerAdapter extends FragmentPagerAdapter {
+
+        public ShoeViewPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    //name of the item, picture of the item, description of item
+                    return FavShoeFragment.newInstance("Zoom 3987",
+                            "Nike",
+                            "24356",
+                            0);
+                case 1:
+                    return FavShoeFragment.newInstance("Boomz 867",
+                            "Nike",
+                            "99",
+                            0);
+                case 2:
+                    return FavShoeFragment.newInstance("Moons 2345",
+                            "Adidas",
+                            "99",
+                            0);
+                case 3:
+                    return FavShoeFragment.newInstance("Toonz 97",
+                            "Under Armour",
+                            "99",
+                            0);
+                default:
+                    return FavShoeFragment.newInstance("Shoe", "brand", "99", 0);
+            }
+        }
+        public int getCount() {
+            return 4;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

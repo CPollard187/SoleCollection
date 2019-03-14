@@ -12,6 +12,7 @@
         android:id="@+id/shoeImage"
         android:layout_width="match_parent"
         android:layout_height="265dp"
+        android:layout_weight="0"
         android:padding="10dp"
         android:src="@mipmap/ic_launcher" />
 
@@ -24,6 +25,8 @@
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
             android:text="TextView"
             android:textSize="24sp" />
 
@@ -45,6 +48,8 @@
             android:id="@+id/brandText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
             android:text="TextView"
             android:textSize="18sp" />
     </LinearLayout>
