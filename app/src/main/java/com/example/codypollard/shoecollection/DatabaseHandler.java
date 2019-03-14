@@ -123,7 +123,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return shoe;
     }
 
-    public ArrayList<Shoe> getAllLocations(){
+    public ArrayList<Shoe> getAllShoes(){
         ArrayList<Shoe> shoeList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_SHOES;
         SQLiteDatabase db = this.getReadableDatabase();

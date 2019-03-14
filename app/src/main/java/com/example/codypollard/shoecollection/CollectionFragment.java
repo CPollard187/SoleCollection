@@ -4,9 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+
+import java.util.ArrayList;
 
 
 /**
@@ -64,7 +70,15 @@ public class CollectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_collection, container, false);
+        View view = inflater.inflate(R.layout.fragment_collection, container, false);
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        RecyclerView list = view.findViewById(R.id.shoeList);
+        ArrayList<Shoe> shoeList = db.getAllShoes();
+        db.close();
+        CustomShoeAdapter adapter = new CustomShoeAdapter(shoeList, getContext());
+        list.setAdapter(adapter);
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
