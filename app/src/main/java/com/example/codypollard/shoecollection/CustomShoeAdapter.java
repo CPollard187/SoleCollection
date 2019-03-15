@@ -1,6 +1,8 @@
 package com.example.codypollard.shoecollection;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     public CustomShoeAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shoe_view, viewGroup, false);
+        final ImageView deleteButton = view.findViewById(R.id.deleteButton);
         final CustomViewHolder customViewHolder = new CustomViewHolder(view);
         /**
          * Make the entire CardView Clickable
@@ -67,7 +70,27 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
 
             }
         });
-
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Delete")
+                        .setMessage("Are you sure you want to delete?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int shoe = customViewHolder.getAdapterPosition();
+                                DatabaseHandler db = new DatabaseHandler(context);
+                                db.deleteShoe(shoes.get(shoe).getId());
+                                shoes.remove(shoe);
+                                notifyItemRemoved(shoe);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
 
         return customViewHolder;
     }
