@@ -1,6 +1,9 @@
 package com.example.codypollard.shoecollection.JavaBeans;
 
-public class Shoe {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Shoe implements Parcelable {
 
     private int id;
     private String name;
@@ -99,4 +102,44 @@ public class Shoe {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.brand);
+        dest.writeString(this.type);
+        dest.writeString(this.description);
+        dest.writeString(this.colourWay);
+        dest.writeString(this.condition);
+        dest.writeString(this.retailPrice);
+    }
+
+    protected Shoe(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.brand = in.readString();
+        this.type = in.readString();
+        this.description = in.readString();
+        this.colourWay = in.readString();
+        this.condition = in.readString();
+        this.retailPrice = in.readString();
+    }
+
+    public static final Parcelable.Creator<Shoe> CREATOR = new Parcelable.Creator<Shoe>() {
+        @Override
+        public Shoe createFromParcel(Parcel source) {
+            return new Shoe(source);
+        }
+
+        @Override
+        public Shoe[] newArray(int size) {
+            return new Shoe[size];
+        }
+    };
 }

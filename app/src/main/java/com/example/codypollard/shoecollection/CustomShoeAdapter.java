@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
         final View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shoe_view, viewGroup, false);
         final ImageView deleteButton = view.findViewById(R.id.deleteButton);
+        final ImageView updateButton = view.findViewById(R.id.updateButton);
         final CustomViewHolder customViewHolder = new CustomViewHolder(view);
         /**
          * Make the entire CardView Clickable
@@ -77,7 +80,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
                         .setTitle("Delete")
                         .setMessage("Are you sure you want to delete?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 int shoe = customViewHolder.getAdapterPosition();
@@ -87,8 +90,21 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
                                 notifyItemRemoved(shoe);
                             }
                         })
-                        .setNegativeButton("No", null)
+                        .setNegativeButton("Cancel", null)
                         .show();
+            }
+        });
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mainActivity = (MainActivity) context;
+                int shoe = customViewHolder.getAdapterPosition();
+                FragmentManager fm = mainActivity.getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.content, UpdateShoeFragment.newInstance(shoes.get(shoe)));
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

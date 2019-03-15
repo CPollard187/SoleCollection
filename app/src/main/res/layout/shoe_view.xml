@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/shoeImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -91,6 +91,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
+
+            <ImageView
+                android:id="@+id/updateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_update_black_24dp" />
 
         </LinearLayout>
     </LinearLayout>
