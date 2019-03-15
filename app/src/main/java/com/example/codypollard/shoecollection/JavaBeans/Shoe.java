@@ -7,9 +7,9 @@ public class Shoe implements Parcelable {
 
     private int id;
     private String name;
+    private String description;
     private String brand;
     private String type;
-    private String description;
     private String colourWay;
     private String condition;
     private String retailPrice;
@@ -18,22 +18,22 @@ public class Shoe implements Parcelable {
 
     }
 
-    public Shoe(int id, String name, String brand, String type, String description, String colourWay, String condition, String retailPrice) {
+    public Shoe(int id, String name, String description, String brand, String type, String colourWay, String condition, String retailPrice) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.brand = brand;
         this.type = type;
-        this.description = description;
         this.colourWay = colourWay;
         this.condition = condition;
         this.retailPrice = retailPrice;
     }
 
-    public Shoe(String name, String brand, String type, String description, String colourWay, String condition, String retailPrice) {
+    public Shoe(String name, String description, String brand, String type, String colourWay, String condition, String retailPrice) {
         this.name = name;
+        this.description = description;
         this.brand = brand;
         this.type = type;
-        this.description = description;
         this.colourWay = colourWay;
         this.condition = condition;
         this.retailPrice = retailPrice;

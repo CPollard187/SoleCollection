@@ -8,16 +8,6 @@
     tools:context=".AddAShoeFragment">
 
     <!--Brand Info-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Brand" />
-
-    <EditText
-        android:id="@+id/brandEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
 
     <!--Name Info-->
     <TextView
@@ -35,6 +25,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Description" />
+
+    <EditText
+        android:id="@+id/descriptionEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brand" />
+
+    <EditText
+        android:id="@+id/brandEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Type" />
 
     <EditText
@@ -44,16 +56,6 @@
         android:inputType="textPersonName" />
 
     <!--Description Info-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description" />
-
-    <EditText
-        android:id="@+id/descriptionEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
 
     <!--Colourway Info-->
     <TextView
