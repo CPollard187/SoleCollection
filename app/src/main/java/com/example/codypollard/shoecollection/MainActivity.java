@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity
                     HomeFragment.OnFragmentInteractionListener,
                     ClosetFragment.OnFragmentInteractionListener,
                     AddAShoeFragment.OnFragmentInteractionListener,
-                    CollectionFragment.OnFragmentInteractionListener{
+                    CollectionFragment.OnFragmentInteractionListener,
+                    FavShoeFragment.OnFragmentInteractionListener{
 
     FragmentManager fm;
     @Override
