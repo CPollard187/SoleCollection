@@ -40,9 +40,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_BRAND = "brand";
     public static final String COLUMN_TYPE = "type";
-    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_COLOURWAY = "colourway";
     public static final String COLUMN_CONDITION = "condition";
     public static final String COLUMN_RETAILPRICE = "retailprice";
@@ -85,9 +85,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, shoe.getName());
+        values.put(COLUMN_DESCRIPTION, shoe.getDescription());
         values.put(COLUMN_BRAND, shoe.getBrand());
         values.put(COLUMN_TYPE, shoe.getType());
-        values.put(COLUMN_DESCRIPTION, shoe.getDescription());
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
         values.put(COLUMN_RETAILPRICE, shoe.getRetailPrice());
@@ -102,8 +102,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Shoe shoe = null;
         Cursor cursor = db.query(TABLE_SHOES,
-                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_BRAND, COLUMN_TYPE,
-                        COLUMN_DESCRIPTION,COLUMN_COLOURWAY,COLUMN_CONDITION,COLUMN_RETAILPRICE},
+                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_BRAND, COLUMN_TYPE,
+                        COLUMN_COLOURWAY,COLUMN_CONDITION,COLUMN_RETAILPRICE},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null,null);
@@ -152,9 +152,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, shoe.getName());
+        values.put(COLUMN_DESCRIPTION, shoe.getDescription());
         values.put(COLUMN_BRAND, shoe.getBrand());
         values.put(COLUMN_TYPE, shoe.getType());
-        values.put(COLUMN_DESCRIPTION, shoe.getDescription());
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
         values.put(COLUMN_RETAILPRICE, shoe.getRetailPrice());

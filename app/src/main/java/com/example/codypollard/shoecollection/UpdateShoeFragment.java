@@ -1,10 +1,11 @@
 package com.example.codypollard.shoecollection;
 
 import android.content.Context;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +18,24 @@ import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddAShoeFragment.OnFragmentInteractionListener} interface
+ * {@link UpdateShoeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AddAShoeFragment#newInstance} factory method to
+ * Use the {@link UpdateShoeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddAShoeFragment extends Fragment {
+public class UpdateShoeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Shoe mParam1;
+    FragmentManager fm;
 
     private OnFragmentInteractionListener mListener;
 
-    public AddAShoeFragment() {
+    public UpdateShoeFragment() {
         // Required empty public constructor
     }
 
@@ -43,15 +44,13 @@ public class AddAShoeFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddAShoeFragment.
+     * @return A new instance of fragment UpdateShoeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddAShoeFragment newInstance(String param1, String param2) {
-        AddAShoeFragment fragment = new AddAShoeFragment();
+    public static UpdateShoeFragment newInstance(Parcelable param1) {
+        UpdateShoeFragment fragment = new UpdateShoeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +59,8 @@ public class AddAShoeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getParcelable(ARG_PARAM1);
+
         }
     }
 
@@ -69,8 +68,7 @@ public class AddAShoeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_ashoe, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_update_shoe, container, false);
         final EditText brands = view.findViewById(R.id.brandEdit);
         final EditText type = view.findViewById(R.id.typeEdit);
         final EditText name = view.findViewById(R.id.nameEdit);
@@ -78,25 +76,35 @@ public class AddAShoeFragment extends Fragment {
         final EditText colourway = view.findViewById(R.id.colourwayEdit);
         final EditText condition = view.findViewById(R.id.conditionEdit);
         final EditText retailPrice = view.findViewById(R.id.retailEdit);
-        Button createButton = view.findViewById(R.id.createButton);
+        Button updateButton = view.findViewById(R.id.updateButton);
 
-        createButton.setOnClickListener(new View.OnClickListener() {
+        if(mParam1 != null){
+            name.setText(mParam1.getName());
+            description.setText(mParam1.getDescription());
+            type.setText(mParam1.getType());
+            brands.setText(mParam1.getBrand());
+            colourway.setText(mParam1.getColourWay());
+            condition.setText(mParam1.getCondition());
+            retailPrice.setText(mParam1.getRetailPrice());
+        }
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Shoe shoe = new Shoe(name.getText().toString(),
-                        brands.getText().toString(), type.getText().toString(),
-                        colourway.getText().toString(),
-                        condition.getText().toString(), description.getText().toString(), retailPrice.getText().toString()
-                        );
-                //Get access to the database
+                mParam1.setName(name.getText().toString());
+                mParam1.setDescription(description.getText().toString());
+                mParam1.setBrand(brands.getText().toString());
+                mParam1.setType(type.getText().toString());
+                mParam1.setColourWay(colourway.getText().toString());
+                mParam1.setCondition(condition.getText().toString());
+                mParam1.setRetailPrice(retailPrice.getText().toString());
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                //Call the addShoe function
-                //Populates the db with the info from the form
-                db.addShoe(shoe);
+                db.updateShoe(mParam1);
                 db.close();
+                fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
             }
         });
-
         return view;
     }
 
