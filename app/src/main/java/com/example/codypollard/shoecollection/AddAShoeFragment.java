@@ -85,11 +85,11 @@ public class AddAShoeFragment extends Fragment {
             public void onClick(View v) {
                 Shoe shoe = new Shoe(
                         name.getText().toString(),
+                        description.getText().toString(),
                         brands.getText().toString(),
                         type.getText().toString(),
                         colourway.getText().toString(),
                         condition.getText().toString(),
-                        description.getText().toString(),
                         retailPrice.getText().toString()
                         );
                 //Get access to the database
