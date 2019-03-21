@@ -10,10 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.util.ArrayList;
 
@@ -100,6 +102,16 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
                 transaction.replace(R.id.content, UpdateShoeFragment.newInstance(shoes.get(shoe)));
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        });
+        final ImageView share = view.findViewById(R.id.shareButton);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TweetComposer.Builder builder = new TweetComposer.Builder(context)
+                        .text("Check Out my newest Pick Up!");
+//                        .image(imageUri);
+                builder.show();
             }
         });
 

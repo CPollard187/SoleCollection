@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.util.ArrayList;
 
@@ -78,8 +81,20 @@ public class CollectionFragment extends Fragment {
         CustomShoeAdapter adapter = new CustomShoeAdapter(shoeList, getContext());
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        return view;
-    }
+
+
+//        final ImageView share = view.findViewById(R.id.shareButton);
+//        share.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                TweetComposer.Builder builder = new TweetComposer.Builder(getContext())
+//                        .text("Check Out my newest Pick Up!");
+////                        .image(imageUri);
+//                builder.show();
+//            }
+//        });
+       return view;
+   }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
