@@ -11,4 +11,7 @@
     <string name="CONSUMER_SECRET"></string>
     <string name="com.twitter.sdk.android.CONSUMER_KEY">AznNbCq50XhUK4pvyK6dDpEfg</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">bW1uLFJn22q1HCXERF5vDfXzx67mK9yz8jRF0eihSUgtVNnZZr</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

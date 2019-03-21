@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity
                     AddAShoeFragment.OnFragmentInteractionListener,
                     CollectionFragment.OnFragmentInteractionListener,
                     FavShoeFragment.OnFragmentInteractionListener,
-                    UpdateShoeFragment.OnFragmentInteractionListener{
+                    UpdateShoeFragment.OnFragmentInteractionListener,
+                    TestFragment.OnFragmentInteractionListener {
 
     FragmentManager fm;
     @Override
@@ -117,7 +118,9 @@ public class MainActivity extends AppCompatActivity
             .replace(R.id.content, new AddAShoeFragment())
             .commit();
         } else if (id == R.id.nav_email) {
-//       Code here for email the app creator
+            fm.beginTransaction()
+                    .replace(R.id.content, new TestFragment())
+                    .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
