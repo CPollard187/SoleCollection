@@ -34,6 +34,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     public CustomShoeAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shoe_view, viewGroup, false);
+
         final ImageView deleteButton = view.findViewById(R.id.deleteButton);
         final ImageView updateButton = view.findViewById(R.id.updateButton);
         final CustomViewHolder customViewHolder = new CustomViewHolder(view);
@@ -43,31 +44,10 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView showContent = view.findViewById(R.id.showContent);
                 TextView type = view.findViewById(R.id.type);
                 TextView condition = view.findViewById(R.id.condition);
                 TextView colourway = view.findViewById(R.id.colourway);
                 int shoe = customViewHolder.getAdapterPosition();
-                if(type.getText()
-                        != shoes.get(shoe).getType() && condition.getText()
-                        != shoes.get(shoe).getCondition() && colourway.getText()
-                        != shoes.get(shoe).getColourWay()){
-                    type.setText(shoes.get(shoe).getType());
-                    colourway.setText(shoes.get(shoe).getColourWay());
-                    condition.setText(shoes.get(shoe).getCondition());
-                    showContent.setText("Click for less");
-                    customViewHolder.chevron.setImageResource(
-                            R.drawable.ic_expand_less_black_24dp);
-                }
-                else{
-                    type.setText("");
-                    condition.setText("");
-                    colourway.setText("");
-                    showContent.setText("Click for more");
-                    customViewHolder.chevron.setImageResource(
-                            R.drawable.ic_expand_more_black_24dp);
-                }
-
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +102,10 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int i) {
         Shoe shoe = shoes.get(i);
         viewHolder.name.setText(shoe.getName());
+        viewHolder.brand.setText(shoe.getBrand());
+        viewHolder.condition.setText(shoe.getCondition());
+        viewHolder.colourway.setText(shoe.getColourWay());
+        viewHolder.type.setText(shoe.getType());
     }
 
     @Override
@@ -137,8 +121,6 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
         protected TextView colourway;
         protected TextView condition;
         //protected TextView retailPrice;
-        protected ImageView chevron;
-        protected TextView showContent;
         //protected TextView description;
 
         public CustomViewHolder(View view){
@@ -149,8 +131,6 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             this.colourway  = view.findViewById(R.id.colourway);
             this.condition  = view.findViewById(R.id.condition);
             //this.retailPrice  = view.findViewById(R.id.retailPrice);
-            this.showContent = view.findViewById(R.id.showContent);
-            this.chevron = view.findViewById(R.id.showChevron);
             //this.description = view.findViewById(R.id.description);
 
         }

@@ -20,6 +20,19 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/brand"
                 android:layout_width="match_parent"
@@ -28,7 +41,8 @@
                 android:padding="4dp"
                 android:text="Brand"
                 android:textAlignment="textStart"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/name"
@@ -38,9 +52,17 @@
                 android:padding="4dp"
                 android:text="Name"
                 android:textAlignment="textStart"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
         </LinearLayout>
+
+        <View android:layout_height="1dp"
+            android:layout_width="wrap_content"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/divider" />
 
         <TextView
             android:id="@+id/type"
@@ -64,40 +86,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/showContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Click for more"
-                android:textStyle="italic" />
-
-            <ImageView
-                android:id="@+id/showChevron"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_expand_more_black_24dp" />
 
             <ImageView
                 android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:padding="5dp"
                 app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
 
             <ImageView
                 android:id="@+id/updateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:padding="5dp"
                 app:srcCompat="@drawable/ic_update_black_24dp" />
 
             <ImageView
                 android:id="@+id/shareButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:padding="5dp"
                 app:srcCompat="@drawable/ic_menu_share" />
 
         </LinearLayout>
