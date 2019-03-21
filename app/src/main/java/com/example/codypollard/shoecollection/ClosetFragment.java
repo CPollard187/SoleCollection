@@ -7,9 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 
 /**
@@ -80,8 +88,14 @@ public class ClosetFragment extends Fragment {
             super(fragmentManager);
         }
 
+
+//        DatabaseHandler db = new DatabaseHandler(getContext());
+//        ArrayList<Shoe> shoeList = db.getAllShoes();
+//        db.close();
         @Override
         public Fragment getItem(int position) {
+
+            //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
             switch (position) {
                 case 0:
                     //name of the item, picture of the item, description of item
@@ -108,6 +122,7 @@ public class ClosetFragment extends Fragment {
                     return FavShoeFragment.newInstance("Shoe", "brand", "99", 0);
             }
         }
+        //shoeList.size();
         public int getCount() {
             return 4;
         }

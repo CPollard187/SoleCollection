@@ -34,6 +34,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     public CustomShoeAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.shoe_view, viewGroup, false);
+
         final ImageView deleteButton = view.findViewById(R.id.deleteButton);
         final ImageView updateButton = view.findViewById(R.id.updateButton);
         final CustomViewHolder customViewHolder = new CustomViewHolder(view);
@@ -48,10 +49,13 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
                 TextView condition = view.findViewById(R.id.condition);
                 TextView colourway = view.findViewById(R.id.colourway);
                 int shoe = customViewHolder.getAdapterPosition();
-                if(type.getText()
-                        != shoes.get(shoe).getType() && condition.getText()
-                        != shoes.get(shoe).getCondition() && colourway.getText()
+                if(
+                        type.getText() != shoes.get(shoe).getType()
+                                && condition.getText()
+                        != shoes.get(shoe).getCondition()
+                                && colourway.getText()
                         != shoes.get(shoe).getColourWay()){
+
                     type.setText(shoes.get(shoe).getType());
                     colourway.setText(shoes.get(shoe).getColourWay());
                     condition.setText(shoes.get(shoe).getCondition());
@@ -122,6 +126,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int i) {
         Shoe shoe = shoes.get(i);
         viewHolder.name.setText(shoe.getName());
+        viewHolder.brand.setText(shoe.getBrand());
     }
 
     @Override

@@ -82,17 +82,6 @@ public class CollectionFragment extends Fragment {
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-//        final ImageView share = view.findViewById(R.id.shareButton);
-//        share.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TweetComposer.Builder builder = new TweetComposer.Builder(getContext())
-//                        .text("Check Out my newest Pick Up!");
-////                        .image(imageUri);
-//                builder.show();
-//            }
-//        });
        return view;
    }
 
