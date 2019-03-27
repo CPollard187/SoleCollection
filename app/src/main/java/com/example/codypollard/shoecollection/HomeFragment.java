@@ -4,31 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.codypollard.shoecollection.JavaBeans.Shoe;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter;
+import com.twitter.sdk.android.tweetui.UserTimeline;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ClosetFragment.OnFragmentInteractionListener} interface
+ * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ClosetFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClosetFragment extends Fragment {
+public class HomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,7 +36,7 @@ public class ClosetFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ClosetFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -50,11 +46,11 @@ public class ClosetFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ClosetFragment.
+     * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClosetFragment newInstance(String param1, String param2) {
-        ClosetFragment fragment = new ClosetFragment();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,6 +61,7 @@ public class ClosetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Twitter.initialize(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -75,57 +72,20 @@ public class ClosetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_closet, container, false);
-        final ViewPager viewPager = view.findViewById(R.id.shoeViewPager);
-        final ShoeViewPagerAdapter adapter = new ShoeViewPagerAdapter(getFragmentManager());
-        viewPager.setAdapter(adapter);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        final RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final UserTimeline userTimeline = new UserTimeline.Builder()
+                .screenName("SoleCollection1")
+                .build();
+        final TweetTimelineRecyclerViewAdapter adapter =
+                new TweetTimelineRecyclerViewAdapter.Builder(getContext())
+                        .setTimeline(userTimeline)
+                        .setViewStyle(R.style.tw__TweetLightWithActionsStyle)
+                        .build();
+        recyclerView.setAdapter(adapter);
         return view;
-    }
-
-    class ShoeViewPagerAdapter extends FragmentPagerAdapter {
-
-        public ShoeViewPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-
-//        DatabaseHandler db = new DatabaseHandler(getContext());
-//        ArrayList<Shoe> shoeList = db.getAllShoes();
-//        db.close();
-        @Override
-        public Fragment getItem(int position) {
-
-            //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
-            switch (position) {
-                case 0:
-                    //name of the item, picture of the item, description of item
-                    return FavShoeFragment.newInstance("Zoom 3987",
-                            "Nike",
-                            "24356",
-                            0);
-                case 1:
-                    return FavShoeFragment.newInstance("Boomz 867",
-                            "Nike",
-                            "99",
-                            0);
-                case 2:
-                    return FavShoeFragment.newInstance("Moons 2345",
-                            "Adidas",
-                            "99",
-                            0);
-                case 3:
-                    return FavShoeFragment.newInstance("Toonz 97",
-                            "Under Armour",
-                            "99",
-                            0);
-                default:
-                    return FavShoeFragment.newInstance("Shoe", "brand", "99", 0);
-            }
-        }
-        //shoeList.size();
-        public int getCount() {
-            return 4;
-        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
