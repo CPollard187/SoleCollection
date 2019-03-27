@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
@@ -78,6 +79,7 @@ public class AddAShoeFragment extends Fragment {
         final EditText colourway = view.findViewById(R.id.colourwayEdit);
         final EditText condition = view.findViewById(R.id.conditionEdit);
         final EditText retailPrice = view.findViewById(R.id.retailEdit);
+        final ImageView picture = view.findViewById(R.id.cameraButton);
         Button createButton = view.findViewById(R.id.createButton);
 
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +92,8 @@ public class AddAShoeFragment extends Fragment {
                         type.getText().toString(),
                         colourway.getText().toString(),
                         condition.getText().toString(),
-                        retailPrice.getText().toString()
+                        retailPrice.getText().toString(),
+                       // picture.getText().toString()
                         );
                 //Get access to the database
                 DatabaseHandler db = new DatabaseHandler(getContext());
