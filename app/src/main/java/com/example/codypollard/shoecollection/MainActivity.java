@@ -119,9 +119,10 @@ public class MainActivity extends AppCompatActivity
             .replace(R.id.content, new AddAShoeFragment())
             .commit();
         } else if (id == R.id.nav_email) {
+            String [] email = {"cody.pollard01@stclairconnect.ca"};
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_EMAIL, "cody.pollard01@stclairconnect.ca");
+            intent.putExtra(Intent.EXTRA_EMAIL, email);
             intent.putExtra(Intent.EXTRA_SUBJECT, "Soles Collection App");
             intent.putExtra(Intent.EXTRA_TEXT, "Hey Creator, I was playing with your application and have a few questions");
             if(intent.resolveActivity(getPackageManager()) != null){
