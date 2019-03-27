@@ -78,6 +78,10 @@ public class ClosetFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_closet, container, false);
         final ViewPager viewPager = view.findViewById(R.id.shoeViewPager);
         final ShoeViewPagerAdapter adapter = new ShoeViewPagerAdapter(getFragmentManager());
+        final TextView name = view.findViewById(R.id.nameText);
+        final TextView brand = view.findViewById(R.id.brandText);
+        final TextView price = view.findViewById(R.id.priceText);
+
         viewPager.setAdapter(adapter);
         return view;
     }
@@ -89,8 +93,8 @@ public class ClosetFragment extends Fragment {
         }
 
 
-//        DatabaseHandler db = new DatabaseHandler(getContext());
-//        ArrayList<Shoe> shoeList = db.getAllShoes();
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        ArrayList<Shoe> shoeList = db.getAllShoes();
 //        db.close();
         @Override
         public Fragment getItem(int position) {
@@ -104,7 +108,7 @@ public class ClosetFragment extends Fragment {
                             "24356",
                             0);
                 case 1:
-                    return FavShoeFragment.newInstance("Boomz 867",
+                    return FavShoeFragment.newInstance("",
                             "Nike",
                             "99",
                             0);

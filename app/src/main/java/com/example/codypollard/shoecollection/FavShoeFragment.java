@@ -7,7 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
 
 /**
@@ -74,6 +77,28 @@ public class FavShoeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fav_shoe, container, false);
+        Shoe shoe = new Shoe();
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        db.getAllShoes();
+        db.close();
+        if(mParam1 == null){
+            TextView brand = view.findViewById(R.id.brandText);
+            brand.setText(shoe.getBrand());
+        }
+        if(mParam2 == null){
+            TextView name =
+                    view.findViewById(R.id.nameText);
+            name.setText(shoe.getName());
+        }
+        if(mParam3 == null){
+            TextView price =
+                    view.findViewById(R.id.priceText);
+            price.setText(shoe.getRetailPrice());
+        }
+        if(mParam4 == 0){
+            ImageView shoeImage = view.findViewById(R.id.shoeImage);
+            shoeImage.setImageResource(mParam4);
+        }
         return view;
     }
 
