@@ -85,6 +85,7 @@ public class ClosetFragment extends Fragment {
     class ShoeViewPagerAdapter extends FragmentPagerAdapter {
 
         public ShoeViewPagerAdapter(FragmentManager fragmentManager) {
+
             super(fragmentManager);
         }
 

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -108,89 +109,90 @@ public class AddAShoeFragment extends Fragment {
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Check if we have the permission
+                //check to see if we have the permission
                 if ((ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                         PackageManager.PERMISSION_GRANTED)) {
-                    //If not, did we ask already
+                    //if we do not have the permission
+                    //have we already asked them for permission?
+                    //if so should we show a rationale?
                     if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        //Why we want the permission
+                        //I should show you a reason as to why I want the permission
                         final AlertDialog alertDialog =
                                 new AlertDialog.Builder(getContext()).create();
                         alertDialog.setTitle("Camera Permission");
-                        alertDialog.setMessage("We need access to read and write to external storage to use the camera");
+                        alertDialog.setMessage("We need access read and write to external storage to use the camera");
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 alertDialog.dismiss();
-
+                                //Request for the permission again
                                 ActivityCompat.requestPermissions(getActivity(),
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_LABEL);
                             }
                         });
                         alertDialog.show();
                     } else {
+                        //if this is the first time asking for the permission
+                        //Then ask for permission
                         ActivityCompat.requestPermissions(getActivity(),
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_LABEL);
                     }
-                } else {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    // Ensure that there's a camera activity to handle the intent
-                    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        // Create the File where the photo should go
-                        File photoFile = null;
-                        try {
-                            photoFile = createImageFile();
-                        } catch (IOException ex) {
-                            // Error occurred while creating the File
-                        }
-                        // Continue only if the File was successfully created
-                        if (photoFile != null) {
-                            Uri photoURI = FileProvider.getUriForFile(getContext(),
-                                    "com.example.codypollard.shoecollection.fileprovider",
-                                    photoFile);
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                        }
+                }
+                else {
+                    File picture = null;
+                    try {
+                        picture = createImageFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //Label where we want the media to the output
+                    takePicIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(),
+                            "com.example.codypollard.shoecollection.FileProvider", picture));
+                    if (takePicIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivityForResult(takePicIntent, REQUEST_IMAGE_CAPTURE);
                     }
                 }
+
             }
         });
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Shoe shoe = new Shoe(
-                        name.getText().toString(),
-                        description.getText().toString(),
-                        brands.getText().toString(),
-                        type.getText().toString(),
-                        colourway.getText().toString(),
-                        condition.getText().toString(),
-                        retailPrice.getText().toString(),
-                        //picture.getText().toString()
-                        );
+//                Shoe shoe = new Shoe(
+//                        name.getText().toString(),
+//                        description.getText().toString(),
+//                        brands.getText().toString(),
+//                        type.getText().toString(),
+//                        colourway.getText().toString(),
+//                        condition.getText().toString(),
+//                        retailPrice.getText().toString(),
+//                        //picture.getText().toString()
+//                        );
                 //Get access to the database
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 //Call the addShoe function
                 //Populates the db with the info from the form
-                db.addShoe(shoe);
+                //db.addShoe(shoe);
                 db.close();
             }
         });
 
         return view;
     }
-
+    private String currentPhotoPath;
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
+            Bitmap image = BitmapFactory.decodeFile(currentPhotoPath);
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(imageBitmap);
         }
     }
 
-    String currentPhotoPath;
+
 
     private File createImageFile() throws IOException {
         // Create an image file name
