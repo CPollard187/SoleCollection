@@ -76,6 +76,7 @@ public class ClosetFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_closet, container, false);
+        MainActivity.fab.hide();
         final ViewPager viewPager = view.findViewById(R.id.shoeViewPager);
         final ShoeViewPagerAdapter adapter = new ShoeViewPagerAdapter(getFragmentManager());
         viewPager.setAdapter(adapter);
