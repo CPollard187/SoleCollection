@@ -15,8 +15,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+<<<<<<< HEAD
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+=======
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+>>>>>>> 2f6c469caef74f35e41567c02db597a697cb209a
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +56,7 @@ public class AddAShoeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FragmentManager fm;
 
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -80,7 +86,6 @@ public class AddAShoeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,12 +95,13 @@ public class AddAShoeFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_ashoe, container, false);
-
+        MainActivity.fab.hide();
         final EditText brands = view.findViewById(R.id.brandEdit);
         final EditText type = view.findViewById(R.id.typeEdit);
         final EditText name = view.findViewById(R.id.nameEdit);
@@ -176,6 +182,9 @@ public class AddAShoeFragment extends Fragment {
                 //Populates the db with the info from the form
                 //db.addShoe(shoe);
                 db.close();
+                fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+
             }
         });
 

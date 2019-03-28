@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@color/cardView"
     app:cardCornerRadius="0dp"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
@@ -25,7 +25,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_home_black_24dp" />
+                app:srcCompat="@mipmap/ic_launcher" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,12 +57,13 @@
 
         </LinearLayout>
 
-        <View android:layout_height="1dp"
+        <View
+            android:id="@+id/divider"
             android:layout_width="wrap_content"
-            android:background="#90909090"
-            android:layout_marginBottom="5dp"
+            android:layout_height="1dp"
             android:layout_marginTop="5dp"
-            android:id="@+id/divider" />
+            android:layout_marginBottom="5dp"
+            android:background="#90909090" />
 
         <TextView
             android:id="@+id/type"
