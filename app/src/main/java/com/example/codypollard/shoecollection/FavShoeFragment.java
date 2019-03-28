@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,16 +26,16 @@ import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 public class FavShoeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
-    private static final String ARG_PARAM4 = "param4";
+    private static final String ARG_PARAM1 = "name";
+    private static final String ARG_PARAM2 = "brand";
+    private static final String ARG_PARAM3 = "price";
+    private static final String ARG_PARAM4 = "shoeImage";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private String mParam3;
-    private int mParam4;
+    private String name;
+    private String brand;
+    private String price;
+    private int shoeImage;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,18 +47,16 @@ public class FavShoeFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment FavShoeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavShoeFragment newInstance(String param1, String param2, String param3, int param4) {
+    public static FavShoeFragment newInstance(String name, String brand, String price, int shoeImage) {
         FavShoeFragment fragment = new FavShoeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
-        args.putInt(ARG_PARAM4, param4);
+        args.putString(ARG_PARAM1, name);
+        args.putString(ARG_PARAM2, brand);
+        args.putString(ARG_PARAM3, price);
+        args.putInt(ARG_PARAM4, shoeImage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,10 +65,10 @@ public class FavShoeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
-            mParam4 = getArguments().getInt(ARG_PARAM4);
+            name = getArguments().getString(ARG_PARAM1);
+            brand = getArguments().getString(ARG_PARAM2);
+            price = getArguments().getString(ARG_PARAM3);
+            shoeImage = getArguments().getInt(ARG_PARAM4);
         }
     }
 
@@ -77,28 +77,30 @@ public class FavShoeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fav_shoe, container, false);
+        MainActivity.fab.hide();
         Shoe shoe = new Shoe();
         DatabaseHandler db = new DatabaseHandler(getContext());
-        db.getAllShoes();
+        ArrayList<Shoe> shoeList = db.getAllShoes();
         db.close();
-        if(mParam1 == null){
-            TextView brand = view.findViewById(R.id.brandText);
-            brand.setText(shoe.getBrand());
+        if(brand != null){
+            TextView brandText = view.findViewById(R.id.brandText);
+            brandText.setText(brand);
         }
-        if(mParam2 == null){
-            TextView name =
+        if(name != null){
+            TextView nameText =
                     view.findViewById(R.id.nameText);
-            name.setText(shoe.getName());
+            nameText.setText(name);
         }
-        if(mParam3 == null){
-            TextView price =
+        if(price != null){
+            TextView priceText =
                     view.findViewById(R.id.priceText);
-            price.setText(shoe.getRetailPrice());
+            priceText.setText(price);
         }
-        if(mParam4 == 0){
+        if(shoeImage != 0){
             ImageView shoeImage = view.findViewById(R.id.shoeImage);
-            shoeImage.setImageResource(mParam4);
+            shoeImage.setImageResource(R.mipmap.ic_launcher);
         }
+
         return view;
     }
 
