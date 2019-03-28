@@ -15,13 +15,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-<<<<<<< HEAD
+
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-=======
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
->>>>>>> 2f6c469caef74f35e41567c02db597a697cb209a
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,32 +115,26 @@ public class AddAShoeFragment extends Fragment {
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check to see if we have the permission
                 if ((ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                         PackageManager.PERMISSION_GRANTED)) {
-                    //if we do not have the permission
-                    //have we already asked them for permission?
-                    //if so should we show a rationale?
+
                     if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        //I should show you a reason as to why I want the permission
                         final AlertDialog alertDialog =
                                 new AlertDialog.Builder(getContext()).create();
-                        alertDialog.setTitle("Camera Permission");
-                        alertDialog.setMessage("We need access read and write to external storage to use the camera");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                        alertDialog.setTitle("Can we use your camera?");
+                        alertDialog.setMessage("We need access to read and write to external storage to use the camera");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CONFIRM", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 alertDialog.dismiss();
-                                //Request for the permission again
                                 ActivityCompat.requestPermissions(getActivity(),
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_LABEL);
                             }
                         });
                         alertDialog.show();
                     } else {
-                        //if this is the first time asking for the permission
-                        //Then ask for permission
+
                         ActivityCompat.requestPermissions(getActivity(),
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_LABEL);
                     }
@@ -153,7 +147,6 @@ public class AddAShoeFragment extends Fragment {
                         e.printStackTrace();
                     }
                     Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    //Label where we want the media to the output
                     takePicIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(),
                             "com.example.codypollard.shoecollection.FileProvider", picture));
                     if (takePicIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -195,9 +188,9 @@ public class AddAShoeFragment extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap image = BitmapFactory.decodeFile(currentPhotoPath);
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = new ImageView(getContext());
-            imageView.setImageBitmap(imageBitmap);
+            imageView.setImageBitmap(image);
         }
     }
 
