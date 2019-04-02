@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.CustomViewHolder>{
     private ArrayList<Shoe> shoes;
-
     private Context context;
 
     public CustomShoeAdapter(@NonNull ArrayList<Shoe> shoes, Context context){
