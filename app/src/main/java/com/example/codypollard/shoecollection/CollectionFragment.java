@@ -85,7 +85,7 @@ public class CollectionFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.addToBackStack(null);
-                transaction.replace(R.id.content, new AddAShoeFragment());
+                transaction.replace(R.id.content, new SearchFragment());
                 transaction.commit();
             }
         });

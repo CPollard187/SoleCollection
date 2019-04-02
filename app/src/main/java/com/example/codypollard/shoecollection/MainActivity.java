@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
                     CollectionFragment.OnFragmentInteractionListener,
                     FavShoeFragment.OnFragmentInteractionListener,
                     UpdateShoeFragment.OnFragmentInteractionListener,
+                    SearchFragment.OnFragmentInteractionListener,
                     TestFragment.OnFragmentInteractionListener {
 
     FragmentManager fm;
