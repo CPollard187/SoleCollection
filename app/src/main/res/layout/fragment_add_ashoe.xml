@@ -98,6 +98,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="25dp"
         android:text="Add a Picture" />
 
 
@@ -106,6 +107,15 @@
         android:layout_width="288dp"
         android:layout_height="62dp"
         android:src="@drawable/ic_menu_camera" />
+
+    <LinearLayout
+        android:id="@+id/seePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_row="0"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/createButton"

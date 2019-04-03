@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
@@ -57,7 +58,8 @@ public class AddAShoeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     FragmentManager fm;
-
+    LinearLayout seePic;
+    private String currentPhotoPath;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int CAMERA_PERMISSION_LABEL = 2;
@@ -110,6 +112,7 @@ public class AddAShoeFragment extends Fragment {
         final EditText condition = view.findViewById(R.id.conditionEdit);
         final EditText retailPrice = view.findViewById(R.id.retailEdit);
         final ImageView picture = view.findViewById(R.id.cameraButton);
+        seePic =  (LinearLayout) view.findViewById(R.id.seePic);
         Button createButton = view.findViewById(R.id.createButton);
 
         picture.setOnClickListener(new View.OnClickListener() {
@@ -140,15 +143,15 @@ public class AddAShoeFragment extends Fragment {
                     }
                 }
                 else {
-                    File picture = null;
+                    File pictureFile = null;
                     try {
-                        picture = createImageFile();
+                        pictureFile = createImageFile();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     takePicIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(),
-                            "com.example.codypollard.shoecollection.FileProvider", picture));
+                            "com.example.codypollard.shoecollection.FileProvider", pictureFile));
                     if (takePicIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivityForResult(takePicIntent, REQUEST_IMAGE_CAPTURE);
                     }
@@ -159,38 +162,39 @@ public class AddAShoeFragment extends Fragment {
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Shoe shoe = new Shoe(
-//                        name.getText().toString(),
-//                        description.getText().toString(),
-//                        brands.getText().toString(),
-//                        type.getText().toString(),
-//                        colourway.getText().toString(),
-//                        condition.getText().toString(),
-//                        retailPrice.getText().toString(),
-//                        //picture.getText().toString()
-//                        );
+                Shoe shoe = new Shoe(
+                        name.getText().toString(),
+                        description.getText().toString(),
+                        brands.getText().toString(),
+                        type.getText().toString(),
+                        colourway.getText().toString(),
+                        condition.getText().toString(),
+                        retailPrice.getText().toString(),
+                        currentPhotoPath
+                );
                 //Get access to the database
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 //Call the addShoe function
                 //Populates the db with the info from the form
-                //db.addShoe(shoe);
+                db.addShoe(shoe);
                 db.close();
                 fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
-
             }
         });
-
         return view;
     }
-    private String currentPhotoPath;
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap image = BitmapFactory.decodeFile(currentPhotoPath);
             //Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = new ImageView(getContext());
             imageView.setImageBitmap(image);
+            seePic.addView(imageView);
         }
     }
 

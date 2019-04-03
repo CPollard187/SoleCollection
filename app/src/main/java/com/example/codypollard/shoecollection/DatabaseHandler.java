@@ -92,7 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
         values.put(COLUMN_RETAILPRICE, shoe.getRetailPrice());
-        values.put(COLUMN_PICTURE, shoe.getRetailPrice());
+        values.put(COLUMN_PICTURE, shoe.getPicture());
         db.insert(TABLE_SHOES, null, values);
         db.close();
     }
