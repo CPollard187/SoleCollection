@@ -100,6 +100,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int i) {
         Shoe shoe = shoes.get(i);
+        viewHolder.collectionImage.setImage();
         viewHolder.name.setText(shoe.getName());
         viewHolder.brand.setText(shoe.getBrand());
         viewHolder.condition.setText(shoe.getCondition());
@@ -119,6 +120,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
         protected TextView brand;
         protected TextView colourway;
         protected TextView condition;
+        protected ImageView collectionImage;
         //protected TextView retailPrice;
         //protected TextView description;
 
@@ -129,6 +131,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             this.type  = view.findViewById(R.id.type);
             this.colourway  = view.findViewById(R.id.colourway);
             this.condition  = view.findViewById(R.id.condition);
+            this.collectionImage = view.findViewById(R.id.collectionImage);
             //this.retailPrice  = view.findViewById(R.id.retailPrice);
             //this.description = view.findViewById(R.id.description);
 
