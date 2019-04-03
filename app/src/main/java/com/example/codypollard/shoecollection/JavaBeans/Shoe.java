@@ -13,12 +13,14 @@ public class Shoe implements Parcelable {
     private String colourWay;
     private String condition;
     private String retailPrice;
+    private String picture;
 
     public Shoe(){
 
     }
 
-    public Shoe(int id, String name, String description, String brand, String type, String colourWay, String condition, String retailPrice) {
+    public Shoe(int id, String name, String description, String brand, String type,
+                String colourWay, String condition, String retailPrice, String picture) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -27,9 +29,11 @@ public class Shoe implements Parcelable {
         this.colourWay = colourWay;
         this.condition = condition;
         this.retailPrice = retailPrice;
+        this.picture = picture;
     }
 
-    public Shoe(String name, String description, String brand, String type, String colourWay, String condition, String retailPrice) {
+    public Shoe(String name, String description, String brand, String type,
+                String colourWay, String condition, String retailPrice, String picture) {
         this.name = name;
         this.description = description;
         this.brand = brand;
@@ -37,6 +41,7 @@ public class Shoe implements Parcelable {
         this.colourWay = colourWay;
         this.condition = condition;
         this.retailPrice = retailPrice;
+        this.picture = picture;
     }
 
     public int getId() {
@@ -103,6 +108,14 @@ public class Shoe implements Parcelable {
         this.type = type;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -118,6 +131,7 @@ public class Shoe implements Parcelable {
         dest.writeString(this.colourWay);
         dest.writeString(this.condition);
         dest.writeString(this.retailPrice);
+        dest.writeString(this.picture);
     }
 
     protected Shoe(Parcel in) {
@@ -129,6 +143,7 @@ public class Shoe implements Parcelable {
         this.colourWay = in.readString();
         this.condition = in.readString();
         this.retailPrice = in.readString();
+        this.picture = in.readString();
     }
 
     public static final Parcelable.Creator<Shoe> CREATOR = new Parcelable.Creator<Shoe>() {

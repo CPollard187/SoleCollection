@@ -1,19 +1,43 @@
 package com.example.codypollard.shoecollection;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -34,6 +58,12 @@ public class AddAShoeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     FragmentManager fm;
+    LinearLayout seePic;
+    private String currentPhotoPath;
+
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int CAMERA_PERMISSION_LABEL = 2;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -81,8 +111,54 @@ public class AddAShoeFragment extends Fragment {
         final EditText colourway = view.findViewById(R.id.colourwayEdit);
         final EditText condition = view.findViewById(R.id.conditionEdit);
         final EditText retailPrice = view.findViewById(R.id.retailEdit);
+        final ImageView picture = view.findViewById(R.id.cameraButton);
+        seePic =  (LinearLayout) view.findViewById(R.id.seePic);
         Button createButton = view.findViewById(R.id.createButton);
 
+        picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                        PackageManager.PERMISSION_GRANTED)) {
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        final AlertDialog alertDialog =
+                                new AlertDialog.Builder(getContext()).create();
+                        alertDialog.setTitle("Can we use your camera?");
+                        alertDialog.setMessage("We need access to read and write to external storage to use the camera");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CONFIRM", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.dismiss();
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_LABEL);
+                            }
+                        });
+                        alertDialog.show();
+                    } else {
+
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_LABEL);
+                    }
+                }
+                else {
+                    File pictureFile = null;
+                    try {
+                        pictureFile = createImageFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    takePicIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(),
+                            "com.example.codypollard.shoecollection.FileProvider", pictureFile));
+                    if (takePicIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivityForResult(takePicIntent, REQUEST_IMAGE_CAPTURE);
+                    }
+                }
+
+            }
+        });
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,8 +169,9 @@ public class AddAShoeFragment extends Fragment {
                         type.getText().toString(),
                         colourway.getText().toString(),
                         condition.getText().toString(),
-                        retailPrice.getText().toString()
-                        );
+                        retailPrice.getText().toString(),
+                        currentPhotoPath
+                );
                 //Get access to the database
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 //Call the addShoe function
@@ -103,11 +180,39 @@ public class AddAShoeFragment extends Fragment {
                 db.close();
                 fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
-
             }
         });
-
         return view;
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap image = BitmapFactory.decodeFile(currentPhotoPath);
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ImageView imageView = new ImageView(getContext());
+            imageView.setImageBitmap(image);
+            seePic.addView(imageView);
+        }
+    }
+
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

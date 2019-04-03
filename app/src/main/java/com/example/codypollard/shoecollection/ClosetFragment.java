@@ -84,7 +84,6 @@ public class ClosetFragment extends Fragment {
         MainActivity.fab.hide();
 
         viewPager = (ViewPager)view.findViewById(R.id.shoeViewPager);
-
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<Shoe> shoeList = db.getAllShoes();
 
@@ -92,7 +91,7 @@ public class ClosetFragment extends Fragment {
         final TextView brand = view.findViewById(R.id.brandText);
         final TextView price = view.findViewById(R.id.priceText);
 
-        myCustomPagerAdapter = new MyCustomPagerAdapter(getFragmentManager(), getContext(), shoeList);
+        myCustomPagerAdapter = new MyCustomPagerAdapter(getChildFragmentManager(), getContext(), shoeList);
         System.out.println(shoeList.size());
         viewPager.setAdapter(myCustomPagerAdapter);
 

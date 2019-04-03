@@ -88,7 +88,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             @Override
             public void onClick(View v) {
                 TweetComposer.Builder builder = new TweetComposer.Builder(context)
-                        .text("Check Out my newest Pick Up!");
+                        .text("Check out my newest Pick Up!");
 //                        .image(imageUri);
                 builder.show();
             }

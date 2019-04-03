@@ -46,6 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_COLOURWAY = "colourway";
     public static final String COLUMN_CONDITION = "condition";
     public static final String COLUMN_RETAILPRICE = "retailprice";
+    public static final String COLUMN_PICTURE = "picture";
 
     /**
      * Create statements for our tables
@@ -56,7 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COLUMN_NAME + " TEXT, " + COLUMN_DESCRIPTION + " TEXT,"
             + COLUMN_BRAND + " TEXT, " + COLUMN_TYPE + " TEXT,"
             + COLUMN_COLOURWAY + " TEXT, " + COLUMN_CONDITION + " TEXT,"
-            + COLUMN_RETAILPRICE + " TEXT)";
+            + COLUMN_RETAILPRICE + " TEXT," + COLUMN_PICTURE + " TEXT)";
 
 
     public DatabaseHandler(Context context){
@@ -91,6 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
         values.put(COLUMN_RETAILPRICE, shoe.getRetailPrice());
+        values.put(COLUMN_PICTURE, shoe.getPicture());
         db.insert(TABLE_SHOES, null, values);
         db.close();
     }
@@ -103,7 +105,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Shoe shoe = null;
         Cursor cursor = db.query(TABLE_SHOES,
                 new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_BRAND, COLUMN_TYPE,
-                        COLUMN_COLOURWAY,COLUMN_CONDITION,COLUMN_RETAILPRICE},
+                        COLUMN_COLOURWAY,COLUMN_CONDITION,COLUMN_RETAILPRICE,COLUMN_PICTURE},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null,null);
@@ -117,7 +119,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getString(4),
                     cursor.getString(5),
                     cursor.getString(6),
-                    cursor.getString(7));
+                    cursor.getString(7),
+                    cursor.getString(8));
         }
         db.close();
         return shoe;
@@ -138,7 +141,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(4),
                         cursor.getString(5),
                         cursor.getString(6),
-                        cursor.getString(7)));
+                        cursor.getString(7),
+                        cursor.getString(8)));
             }while(cursor.moveToNext());
         }
         db.close();
@@ -158,6 +162,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_COLOURWAY, shoe.getColourWay());
         values.put(COLUMN_CONDITION, shoe.getCondition());
         values.put(COLUMN_RETAILPRICE, shoe.getRetailPrice());
+        values.put(COLUMN_PICTURE, shoe.getPicture());
         return db.update(TABLE_SHOES, values, COLUMN_ID + "=?",
                 new String[]{String.valueOf(shoe.getId())});
     }
