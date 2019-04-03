@@ -83,6 +83,7 @@ public class ClosetFragment extends Fragment {
 
         MainActivity.fab.hide();
 
+        viewPager = (ViewPager)view.findViewById(R.id.shoeViewPager);
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<Shoe> shoeList = db.getAllShoes();
 
