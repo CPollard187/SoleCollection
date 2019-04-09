@@ -27,6 +27,7 @@ dependencies {
 
     //FlipViewPagerAnimation Github
     implementation 'com.wajahatkarim3.easyflipviewpager:easyflipviewpager:1.0.0'
+
     //Twitter API
     implementation 'com.twitter.sdk.android:twitter:3.1.1'
     //Volley
