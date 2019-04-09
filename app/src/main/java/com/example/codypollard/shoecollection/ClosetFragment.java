@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.wajahatkarim3.easyflipviewpager.CardFlipPageTransformer;
 
 import org.w3c.dom.Text;
 
@@ -100,6 +101,19 @@ public class ClosetFragment extends Fragment {
 //        name.setText(shoe.getName());
 //        brand.setText(shoe.getBrand());
 //        price.setText(shoe.getRetailPrice());
+
+        // Create an object of page transformer
+        CardFlipPageTransformer cardFlipPageTransformer = new CardFlipPageTransformer();
+
+        // Enable / Disable scaling while flipping. If false, then card will only flip as in Poker card example.
+        // Otherwise card will also scale like in Gallery demo. By default, its true.
+        cardFlipPageTransformer.setScalable(true);
+
+        // Set orientation. Either horizontal or vertical. By default, its vertical.
+        cardFlipPageTransformer.setFlipOrientation(CardFlipPageTransformer.VERTICAL);
+
+        // Assign the page transformer to the ViewPager.
+        viewPager.setPageTransformer(true, cardFlipPageTransformer);
         return view;
     }
 
