@@ -12,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.CustomViewHolder>{
@@ -100,7 +103,20 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int i) {
         Shoe shoe = shoes.get(i);
-        //viewHolder.collectionImage.setImage();
+        viewHolder.collectionImage.setVisibility(View.VISIBLE);
+        if(viewHolder.collectionImage.getChildCount() == 0) {
+            //Grab all the photos that match the ID of the current shoe
+            DatabaseHandler db = new DatabaseHandler(context);
+            ArrayList<Shoe> pics = db.getAllShoes();
+            for (int j = 0; j < pics.size(); j++) {
+                ImageView image = new ImageView(context);
+                File pic = new File(pics.get(j).getPicture());
+                Picasso.with(context).load(pic)
+                        .resize(400, 280)
+                        .centerCrop().into(image);
+                viewHolder.collectionImage.addView(image);
+            }
+        }
         viewHolder.name.setText(shoe.getName());
         viewHolder.brand.setText(shoe.getBrand());
         viewHolder.condition.setText(shoe.getCondition());
@@ -120,7 +136,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
         protected TextView brand;
         protected TextView colourway;
         protected TextView condition;
-        protected ImageView collectionImage;
+        protected LinearLayout collectionImage;
         //protected TextView retailPrice;
         //protected TextView description;
 
