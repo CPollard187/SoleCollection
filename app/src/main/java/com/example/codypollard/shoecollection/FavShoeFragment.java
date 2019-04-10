@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -35,7 +38,7 @@ public class FavShoeFragment extends Fragment {
     private String name;
     private String brand;
     private String price;
-    private int shoeImage;
+    private String shoeImage;
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,13 +53,13 @@ public class FavShoeFragment extends Fragment {
      * @return A new instance of fragment FavShoeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavShoeFragment newInstance(String name, String brand, String price, int shoeImage) {
+    public static FavShoeFragment newInstance(String name, String brand, String price, String shoeImage) {
         FavShoeFragment fragment = new FavShoeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, name);
         args.putString(ARG_PARAM2, brand);
         args.putString(ARG_PARAM3, price);
-        args.putInt(ARG_PARAM4, shoeImage);
+        args.putString(ARG_PARAM4, shoeImage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +71,7 @@ public class FavShoeFragment extends Fragment {
             name = getArguments().getString(ARG_PARAM1);
             brand = getArguments().getString(ARG_PARAM2);
             price = getArguments().getString(ARG_PARAM3);
-            shoeImage = getArguments().getInt(ARG_PARAM4);
+            shoeImage = getArguments().getString(ARG_PARAM4);
         }
     }
 
@@ -81,7 +84,6 @@ public class FavShoeFragment extends Fragment {
         Shoe shoe = new Shoe();
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<Shoe> shoeList = db.getAllShoes();
-        db.close();
         if(brand != null){
             TextView brandText = view.findViewById(R.id.brandText);
             brandText.setText(brand);
@@ -96,10 +98,19 @@ public class FavShoeFragment extends Fragment {
                     view.findViewById(R.id.priceText);
             priceText.setText(price);
         }
-        if(shoeImage != 0){
-            ImageView shoeImage = view.findViewById(R.id.shoeImage);
-            shoeImage.setImageResource(R.mipmap.ic_launcher);
+        if(shoeImage != null){
+            LinearLayout shoeImage = new LinearLayout(getContext());
+            shoeImage.setVisibility(View.VISIBLE);
+            if(shoeImage.getChildCount() == 0) {
+                for (int j = 0; j < shoeList.size(); j++) {
+                    ImageView image = new ImageView(getContext());
+                    File pic = new File(shoeList.get(j).getPicture());
+                    shoeImage.addView(image);
+                }
+            }
         }
+        db.close();
+
 
         return view;
     }
