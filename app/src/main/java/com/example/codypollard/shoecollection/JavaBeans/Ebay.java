@@ -8,6 +8,16 @@ public class Ebay {
     private String itemId;
     private Image image;
 
+    public Ebay (){
+
+    }
+
+    public Ebay(String name, String itemId, Image image) {
+        this.name = name;
+        this.itemId = itemId;
+        this.image = image;
+    }
+
     public String getName() {
         return name;
     }

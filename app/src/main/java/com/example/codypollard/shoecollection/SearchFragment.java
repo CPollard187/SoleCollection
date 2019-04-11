@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.example.codypollard.shoecollection.JavaBeans.Search;
+
 import static com.example.codypollard.shoecollection.MainActivity.fab;
 
 
@@ -75,15 +77,17 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                return false;
+                Search search = new Search();
+                query = searchView.getQuery().toString();
+                search.setSearch(query);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
 
-               newText = searchView.getQuery().toString();
-                System.out.println(newText);
+//               newText = searchView.getQuery().toString();
+//                System.out.println(newText);
                 return false;
             }
         });
