@@ -109,8 +109,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null,null);
-        if(cursor != null){
-            cursor.moveToFirst();
+        if(cursor.moveToFirst()){
             shoe = new Shoe(
                     Integer.parseInt(cursor.getString(0)),
                     cursor.getString(1),

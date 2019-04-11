@@ -189,7 +189,7 @@ public class AddAShoeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
+            //Bundle extras = data.getExtras();
             Bitmap image = BitmapFactory.decodeFile(currentPhotoPath);
             //Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = new ImageView(getContext());
