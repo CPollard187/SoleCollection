@@ -103,25 +103,26 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int i) {
         Shoe shoe = shoes.get(i);
-        viewHolder.collectionImage.setVisibility(View.VISIBLE);
+        //viewHolder.collectionImage.setVisibility(View.VISIBLE);
+        viewHolder.name.setText(shoe.getName());
+        viewHolder.brand.setText(shoe.getBrand());
+        viewHolder.condition.setText(shoe.getCondition());
+        viewHolder.colourway.setText(shoe.getColourWay());
+        viewHolder.type.setText(shoe.getType());
         if(viewHolder.collectionImage.getChildCount() == 0) {
             //Grab all the photos that match the ID of the current shoe
             DatabaseHandler db = new DatabaseHandler(context);
-            ArrayList<Shoe> pics = db.getAllShoes();
-            for (int j = 0; j < pics.size(); j++) {
+            Shoe pics = db.getShoe(shoe.getId());
+//            for (int j = 0; j < pics.size(); j++) {
+            if(pics != null){
                 ImageView image = new ImageView(context);
-                File pic = new File(pics.get(j).getPicture());
+                File pic = new File(pics.getPicture());
                 Picasso.with(context).load(pic)
                         .resize(400, 280)
                         .centerCrop().into(image);
                 viewHolder.collectionImage.addView(image);
             }
         }
-        viewHolder.name.setText(shoe.getName());
-        viewHolder.brand.setText(shoe.getBrand());
-        viewHolder.condition.setText(shoe.getCondition());
-        viewHolder.colourway.setText(shoe.getColourWay());
-        viewHolder.type.setText(shoe.getType());
     }
 
     @Override
@@ -142,10 +143,10 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
 
         public CustomViewHolder(View view){
             super(view);
-            this.brand  = view.findViewById(R.id.brand);
             this.name  = view.findViewById(R.id.name);
             this.type  = view.findViewById(R.id.type);
             this.colourway  = view.findViewById(R.id.colourway);
+            this.brand  = view.findViewById(R.id.brand);
             this.condition  = view.findViewById(R.id.condition);
             this.collectionImage = view.findViewById(R.id.collectionImage);
             //this.retailPrice  = view.findViewById(R.id.retailPrice);
