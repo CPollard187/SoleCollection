@@ -25,6 +25,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Sole Collection"
+        android:textSize="25sp"
+        android:fontFamily="@font/permanentmarkerregular"
         android:textColor="@color/colorAccent"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -33,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
-
+        android:fontFamily="@font/righteousregular"
         android:text="cody.pollard01@stclairconnect.ca" />
 
 </LinearLayout>

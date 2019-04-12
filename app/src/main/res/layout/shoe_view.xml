@@ -32,6 +32,7 @@
                 android:id="@+id/brand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandmedium"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="Brand"
@@ -42,6 +43,7 @@
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/quicksandmedium"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
@@ -63,11 +65,13 @@
         <TextView
             android:id="@+id/type"
             android:layout_width="match_parent"
+            android:fontFamily="@font/quicksandmedium"
             android:layout_height="wrap_content"
             android:padding="4dp" />
 
         <TextView
             android:id="@+id/condition"
+            android:fontFamily="@font/quicksandmedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp" />
@@ -75,6 +79,7 @@
         <TextView
             android:id="@+id/colourway"
             android:layout_width="match_parent"
+            android:fontFamily="@font/quicksandmedium"
             android:layout_height="wrap_content"
             android:padding="4dp" />
 

@@ -14,44 +14,56 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:text="Name" />
 
     <EditText
         android:id="@+id/nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:inputType="textPersonName" />
 
     <!--Type Info-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksandregular"
+
         android:text="Description" />
 
     <EditText
         android:id="@+id/descriptionEdit"
         android:layout_width="match_parent"
+        android:fontFamily="@font/quicksandregular"
+
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
     <TextView
         android:layout_width="wrap_content"
+
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:text="Brand" />
 
     <EditText
         android:id="@+id/brandEdit"
+
+        android:fontFamily="@font/quicksandregular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
     <TextView
         android:layout_width="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:text="Type" />
 
     <EditText
         android:id="@+id/typeEdit"
+        android:fontFamily="@font/quicksandregular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
@@ -61,11 +73,13 @@
     <!--Colourway Info-->
     <TextView
         android:layout_width="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:text="Colour Way" />
 
     <EditText
         android:id="@+id/colourwayEdit"
+        android:fontFamily="@font/quicksandregular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
@@ -73,24 +87,28 @@
     <!--Condition Info-->
     <TextView
         android:layout_width="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:text="Condition" />
 
     <EditText
         android:id="@+id/conditionEdit"
         android:layout_width="match_parent"
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
     <!--RetailPrice Info-->
     <TextView
         android:layout_width="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:text="Retail Price" />
 
     <EditText
         android:id="@+id/retailEdit"
         android:layout_width="match_parent"
+        android:fontFamily="@font/quicksandregular"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
@@ -98,6 +116,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksandregular"
         android:paddingTop="25dp"
         android:text="Add a Picture" />
 
@@ -111,6 +130,7 @@
     <LinearLayout
         android:id="@+id/seePic"
         android:layout_width="100dp"
+
         android:layout_height="100dp"
         android:layout_row="0"
         android:orientation="horizontal">
@@ -122,6 +142,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_columnSpan="2"
-        android:text="Create Shoe" />
+        android:text="Add Shoe To Collection" />
 
 </GridLayout>
