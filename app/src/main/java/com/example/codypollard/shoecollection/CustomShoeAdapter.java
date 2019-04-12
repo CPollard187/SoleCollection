@@ -12,16 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.CustomViewHolder>{
     private ArrayList<Shoe> shoes;
-
     private Context context;
 
     public CustomShoeAdapter(@NonNull ArrayList<Shoe> shoes, Context context){
@@ -89,7 +91,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             @Override
             public void onClick(View v) {
                 TweetComposer.Builder builder = new TweetComposer.Builder(context)
-                        .text("Check Out my newest Pick Up!");
+                        .text("Check out my newest Pick Up!");
 //                        .image(imageUri);
                 builder.show();
             }
@@ -101,11 +103,26 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int i) {
         Shoe shoe = shoes.get(i);
+        //viewHolder.collectionImage.setVisibility(View.VISIBLE);
         viewHolder.name.setText(shoe.getName());
         viewHolder.brand.setText(shoe.getBrand());
         viewHolder.condition.setText(shoe.getCondition());
         viewHolder.colourway.setText(shoe.getColourWay());
         viewHolder.type.setText(shoe.getType());
+        if(viewHolder.collectionImage.getChildCount() == 0) {
+            //Grab all the photos that match the ID of the current shoe
+            DatabaseHandler db = new DatabaseHandler(context);
+            Shoe pics = db.getShoe(shoe.getId());
+//            for (int j = 0; j < pics.size(); j++) {
+            if(pics != null){
+                ImageView image = new ImageView(context);
+                File pic = new File(pics.getPicture());
+                Picasso.with(context).load(pic)
+                        .resize(400, 280)
+                        .centerCrop().into(image);
+                viewHolder.collectionImage.addView(image);
+            }
+        }
     }
 
     @Override
@@ -120,16 +137,18 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
         protected TextView brand;
         protected TextView colourway;
         protected TextView condition;
+        protected LinearLayout collectionImage;
         //protected TextView retailPrice;
         //protected TextView description;
 
         public CustomViewHolder(View view){
             super(view);
-            this.brand  = view.findViewById(R.id.brand);
             this.name  = view.findViewById(R.id.name);
             this.type  = view.findViewById(R.id.type);
             this.colourway  = view.findViewById(R.id.colourway);
+            this.brand  = view.findViewById(R.id.brand);
             this.condition  = view.findViewById(R.id.condition);
+            this.collectionImage = view.findViewById(R.id.collectionImage);
             //this.retailPrice  = view.findViewById(R.id.retailPrice);
             //this.description = view.findViewById(R.id.description);
 

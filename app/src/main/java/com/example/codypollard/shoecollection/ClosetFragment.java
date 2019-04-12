@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.wajahatkarim3.easyflipviewpager.CardFlipPageTransformer;
 
 import org.w3c.dom.Text;
 
@@ -37,6 +38,11 @@ public class ClosetFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ViewPager viewPager;
+    MyCustomPagerAdapter myCustomPagerAdapter;
+    ArrayList<Shoe> shoesList;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,58 +80,41 @@ public class ClosetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_closet, container, false);
-        final ViewPager viewPager = view.findViewById(R.id.shoeViewPager);
-        final ShoeViewPagerAdapter adapter = new ShoeViewPagerAdapter(getFragmentManager());
-        viewPager.setAdapter(adapter);
+
+        MainActivity.fab.hide();
+
+        viewPager = (ViewPager)view.findViewById(R.id.shoeViewPager);
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        ArrayList<Shoe> shoeList = db.getAllShoes();
+
+        final TextView name = view.findViewById(R.id.nameText);
+        final TextView brand = view.findViewById(R.id.brandText);
+        final TextView price = view.findViewById(R.id.priceText);
+
+        myCustomPagerAdapter = new MyCustomPagerAdapter(getChildFragmentManager(), getContext(), shoeList);
+        System.out.println(shoeList.size());
+        viewPager.setAdapter(myCustomPagerAdapter);
+
+        db.close();
+        Shoe shoe = new Shoe();
+//        name.setText(shoe.getName());
+//        brand.setText(shoe.getBrand());
+//        price.setText(shoe.getRetailPrice());
+
+        // Create an object of page transformer
+        CardFlipPageTransformer cardFlipPageTransformer = new CardFlipPageTransformer();
+
+        // Enable / Disable scaling while flipping. If false, then card will only flip as in Poker card example.
+        // Otherwise card will also scale like in Gallery demo. By default, its true.
+        cardFlipPageTransformer.setScalable(true);
+
+        // Set orientation. Either horizontal or vertical. By default, its vertical.
+        cardFlipPageTransformer.setFlipOrientation(CardFlipPageTransformer.VERTICAL);
+
+        // Assign the page transformer to the ViewPager.
+        viewPager.setPageTransformer(true, cardFlipPageTransformer);
         return view;
-    }
-
-    class ShoeViewPagerAdapter extends FragmentPagerAdapter {
-
-        public ShoeViewPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-
-//        DatabaseHandler db = new DatabaseHandler(getContext());
-//        ArrayList<Shoe> shoeList = db.getAllShoes();
-//        db.close();
-        @Override
-        public Fragment getItem(int position) {
-
-            //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
-            switch (position) {
-                case 0:
-                    //name of the item, picture of the item, description of item
-                    return FavShoeFragment.newInstance("Zoom 3987",
-                            "Nike",
-                            "24356",
-                            0);
-                case 1:
-                    return FavShoeFragment.newInstance("Boomz 867",
-                            "Nike",
-                            "99",
-                            0);
-                case 2:
-                    return FavShoeFragment.newInstance("Moons 2345",
-                            "Adidas",
-                            "99",
-                            0);
-                case 3:
-                    return FavShoeFragment.newInstance("Toonz 97",
-                            "Under Armour",
-                            "99",
-                            0);
-                default:
-                    return FavShoeFragment.newInstance("Shoe", "brand", "99", 0);
-            }
-        }
-        //shoeList.size();
-        public int getCount() {
-            return 4;
-        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -167,3 +156,45 @@ public class ClosetFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
+
+//class ShoeViewPagerAdapter extends FragmentPagerAdapter {
+//
+//    public ShoeViewPagerAdapter(FragmentManager fragmentManager) {
+//        super(fragmentManager);
+//    }
+//    @Override
+//    public Fragment getItem(int position) {
+//
+//        //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
+//        switch (position) {
+//            case 0:
+//                //name of the item, picture of the item, description of item
+//                return FavShoeFragment.newInstance("Zoom 3987",
+//                        "Nike",
+//                        "24356",
+//                        0);
+//            case 1:
+//                return FavShoeFragment.newInstance("",
+//                        "Nike",
+//                        "99",
+//                        0);
+//            case 2:
+//                return FavShoeFragment.newInstance("Moons 2345",
+//                        "Adidas",
+//                        "99",
+//                        0);
+//            case 3:
+//                return FavShoeFragment.newInstance("Toonz 97",
+//                        "Under Armour",
+//                        "99",
+//                        0);
+//            default:
+//                return FavShoeFragment.newInstance("Shoe", "brand", "99", 0);
+//        }
+//    }
+//    //shoeList.size();
+//    public int getCount() {
+//        return 4;
+//    }
+//}

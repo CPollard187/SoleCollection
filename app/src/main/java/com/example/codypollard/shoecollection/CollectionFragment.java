@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ public class CollectionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FragmentManager fm;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,6 +77,18 @@ public class CollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_collection, container, false);
+        fm = getActivity().getSupportFragmentManager();
+        MainActivity.fab.setImageResource(R.drawable.ic_add_circle_outline_white_24dp);
+        MainActivity.fab.show();
+        MainActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.addToBackStack(null);
+                transaction.replace(R.id.content, new SearchFragment());
+                transaction.commit();
+            }
+        });
         DatabaseHandler db = new DatabaseHandler(getContext());
         RecyclerView list = view.findViewById(R.id.shoeList);
         ArrayList<Shoe> shoeList = db.getAllShoes();

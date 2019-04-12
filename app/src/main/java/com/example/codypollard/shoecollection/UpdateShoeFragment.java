@@ -68,6 +68,7 @@ public class UpdateShoeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        MainActivity.fab.hide();
         View view = inflater.inflate(R.layout.fragment_update_shoe, container, false);
         final EditText brands = view.findViewById(R.id.brandEdit);
         final EditText type = view.findViewById(R.id.typeEdit);

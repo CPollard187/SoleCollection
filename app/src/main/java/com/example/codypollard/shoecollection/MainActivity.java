@@ -1,5 +1,6 @@
 package com.example.codypollard.shoecollection;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,9 +27,12 @@ public class MainActivity extends AppCompatActivity
                     CollectionFragment.OnFragmentInteractionListener,
                     FavShoeFragment.OnFragmentInteractionListener,
                     UpdateShoeFragment.OnFragmentInteractionListener,
+                    SearchFragment.OnFragmentInteractionListener,
                     TestFragment.OnFragmentInteractionListener {
 
     FragmentManager fm;
+    public static FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,9 +122,19 @@ public class MainActivity extends AppCompatActivity
             .replace(R.id.content, new AddAShoeFragment())
             .commit();
         } else if (id == R.id.nav_email) {
-            fm.beginTransaction()
-                    .replace(R.id.content, new TestFragment())
-                    .commit();
+            String [] email = {"cody.pollard01@stclairconnect.ca"};
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL, email);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Soles Collection App");
+            intent.putExtra(Intent.EXTRA_TEXT, "Hey Creator, I was playing with your application and have a few questions");
+            if(intent.resolveActivity(getPackageManager()) != null){
+                startActivity(intent);
+            }else{
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Download correct software to complete this task",
+                        Snackbar.LENGTH_SHORT).show();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

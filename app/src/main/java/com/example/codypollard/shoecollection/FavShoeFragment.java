@@ -7,7 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.ArrayList;
 
 
 /**
@@ -21,16 +29,16 @@ import android.widget.TextView;
 public class FavShoeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
-    private static final String ARG_PARAM4 = "param4";
+    private static final String ARG_PARAM1 = "name";
+    private static final String ARG_PARAM2 = "brand";
+    private static final String ARG_PARAM3 = "price";
+    private static final String ARG_PARAM4 = "shoeImage";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private String mParam3;
-    private int mParam4;
+    private String name;
+    private String brand;
+    private String price;
+    private String shoeImage;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,18 +50,16 @@ public class FavShoeFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment FavShoeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavShoeFragment newInstance(String param1, String param2, String param3, int param4) {
+    public static FavShoeFragment newInstance(String name, String brand, String price, String shoeImage) {
         FavShoeFragment fragment = new FavShoeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
-        args.putInt(ARG_PARAM4, param4);
+        args.putString(ARG_PARAM1, name);
+        args.putString(ARG_PARAM2, brand);
+        args.putString(ARG_PARAM3, price);
+        args.putString(ARG_PARAM4, shoeImage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,10 +68,10 @@ public class FavShoeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
-            mParam4 = getArguments().getInt(ARG_PARAM4);
+            name = getArguments().getString(ARG_PARAM1);
+            brand = getArguments().getString(ARG_PARAM2);
+            price = getArguments().getString(ARG_PARAM3);
+            shoeImage = getArguments().getString(ARG_PARAM4);
         }
     }
 
@@ -74,6 +80,38 @@ public class FavShoeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fav_shoe, container, false);
+        MainActivity.fab.hide();
+        Shoe shoe = new Shoe();
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        ArrayList<Shoe> shoeList = db.getAllShoes();
+        if(brand != null){
+            TextView brandText = view.findViewById(R.id.brandText);
+            brandText.setText(brand);
+        }
+        if(name != null){
+            TextView nameText =
+                    view.findViewById(R.id.nameText);
+            nameText.setText(name);
+        }
+        if(price != null){
+            TextView priceText =
+                    view.findViewById(R.id.priceText);
+            priceText.setText(price);
+        }
+        if(shoeImage != null){
+            LinearLayout shoeImage = new LinearLayout(getContext());
+            shoeImage.setVisibility(View.VISIBLE);
+            if(shoeImage.getChildCount() == 0) {
+                for (int j = 0; j < shoeList.size(); j++) {
+                    ImageView image = new ImageView(getContext());
+                    File pic = new File(shoeList.get(j).getPicture());
+                    shoeImage.addView(image);
+                }
+            }
+        }
+        db.close();
+
+
         return view;
     }
 
