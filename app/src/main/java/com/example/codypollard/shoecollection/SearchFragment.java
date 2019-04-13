@@ -4,12 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.example.codypollard.shoecollection.JavaBeans.Ebay;
 import com.example.codypollard.shoecollection.JavaBeans.Search;
+import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+
+import java.util.ArrayList;
 
 import static com.example.codypollard.shoecollection.MainActivity.fab;
 
@@ -74,6 +80,7 @@ public class SearchFragment extends Fragment {
         final SearchView searchView = view.findViewById(R.id.searchView);
         final String searchWord;
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -91,6 +98,14 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        RecyclerView list = view.findViewById(R.id.searchList);
+        ArrayList<Ebay> ebays = db.getAllEbays();
+        db.close();
+        CustomSearchShoeAdapter adapter = new CustomSearchShoeAdapter(ebays, getContext());
+        list.setAdapter(adapter);
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         return view;

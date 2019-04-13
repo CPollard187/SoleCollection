@@ -72,7 +72,7 @@ public class CustomSearchShoeAdapter extends RecyclerView.Adapter<CustomSearchSh
         requestQueue = Volley.newRequestQueue(context);
         Search search = new Search();
         String url = "https://api.ebay.com/buy/browse/v1/item_summary/search?q="
-                + search.getSearch()
+//                + search.getSearch()
                 + "&limit=50/Authorizantion=" + TOKEN;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

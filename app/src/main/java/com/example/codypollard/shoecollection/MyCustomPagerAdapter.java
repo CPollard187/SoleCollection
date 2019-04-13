@@ -46,6 +46,7 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
                 shoe.getName(),
                 shoe.getBrand(),
                 shoe.getRetailPrice(),
+
                 shoe.getPicture());
     }
 

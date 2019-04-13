@@ -4,18 +4,33 @@ import android.media.Image;
 
 public class Ebay {
 
+    private int id;
     private String name;
     private String itemId;
-    private Image image;
+    private String image;
 
     public Ebay (){
 
     }
 
-    public Ebay(String name, String itemId, Image image) {
+    public Ebay(String name, String itemId, String image) {
         this.name = name;
         this.itemId = itemId;
         this.image = image;
+    }
+    public Ebay(int id, String name, String itemId, String image) {
+        this.id = id;
+        this.name = name;
+        this.itemId = itemId;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,11 +49,11 @@ public class Ebay {
         this.itemId = itemId;
     }
 
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

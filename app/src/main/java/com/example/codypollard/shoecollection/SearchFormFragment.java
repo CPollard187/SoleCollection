@@ -6,29 +6,25 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.EditText;
 
+import com.example.codypollard.shoecollection.JavaBeans.Search;
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
-
-import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CollectionFragment.OnFragmentInteractionListener} interface
+ * {@link SearchFormFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CollectionFragment#newInstance} factory method to
+ * Use the {@link SearchFormFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CollectionFragment extends Fragment {
+public class SearchFormFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +37,7 @@ public class CollectionFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CollectionFragment() {
+    public SearchFormFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +47,11 @@ public class CollectionFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CollectionFragment.
+     * @return A new instance of fragment SearchFormFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CollectionFragment newInstance(String param1, String param2) {
-        CollectionFragment fragment = new CollectionFragment();
+    public static SearchFormFragment newInstance(String param1, String param2) {
+        SearchFormFragment fragment = new SearchFormFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,31 +72,31 @@ public class CollectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_collection, container, false);
-        fm = getActivity().getSupportFragmentManager();
-        MainActivity.fab.setImageResource(R.drawable.ic_add_circle_outline_white_24dp);
-        MainActivity.fab.show();
-        MainActivity.fab.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_search_form, container, false);
+        final EditText keyword = view.findViewById(R.id.keyword);
+        final Button searchButton = view.findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.content, new AddAShoeFragment());
+                Search search = new Search(
+                        keyword.getText().toString()
+                );
+                //Get access to the database
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                //Call the addSearch function
+                //Populates the db with the info from the form
+                db.addSearch(search);
+                db.close();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.content, new SearchFragment());
                 transaction.commit();
             }
         });
-        DatabaseHandler db = new DatabaseHandler(getContext());
-        RecyclerView list = view.findViewById(R.id.shoeList);
-        ArrayList<Shoe> shoeList = db.getAllShoes();
-        db.close();
-        CustomShoeAdapter adapter = new CustomShoeAdapter(shoeList, getContext());
-        list.setAdapter(adapter);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        return view;
+}
 
-       return view;
-   }
-
-    // TODO: Rename method, update argument and hook method into UI event
+            // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
                     FavShoeFragment.OnFragmentInteractionListener,
                     UpdateShoeFragment.OnFragmentInteractionListener,
                     SearchFragment.OnFragmentInteractionListener,
+                    SearchFormFragment.OnFragmentInteractionListener,
                     TestFragment.OnFragmentInteractionListener {
 
     FragmentManager fm;
@@ -119,8 +120,12 @@ public class MainActivity extends AppCompatActivity
             .commit();
         } else if (id == R.id.nav_addashoe) {
             fm.beginTransaction()
-            .replace(R.id.content, new AddAShoeFragment())
-            .commit();
+                    .replace(R.id.content, new AddAShoeFragment())
+                    .commit();
+        }else if (id == R.id.nav_searchShoe) {
+                fm.beginTransaction()
+                        .replace(R.id.content, new SearchFormFragment())
+                        .commit();
         } else if (id == R.id.nav_email) {
             String [] email = {"cody.pollard01@stclairconnect.ca"};
             Intent intent = new Intent(Intent.ACTION_SENDTO);
