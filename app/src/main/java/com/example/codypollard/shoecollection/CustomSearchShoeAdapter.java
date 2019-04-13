@@ -62,26 +62,24 @@ public class CustomSearchShoeAdapter extends RecyclerView.Adapter<CustomSearchSh
 
     @Override
     public void onBindViewHolder(@NonNull final CustomViewHolder viewHolder, int i) {
-        Ebay ebay = ebays.get(i);
-        //FIX ME HERE
-        //viewHolder.searchName.setText(ebay.getName());
-        viewHolder.itemId.setText(ebay.getItemId());
-        //viewHolder.searchShoe.setText(ebay.getImage());
-
-
-        requestQueue = Volley.newRequestQueue(context);
         Search search = new Search();
+        DatabaseHandler db = new DatabaseHandler(context);
+        Search keyword = db.getSearch(search.getId());
+        requestQueue = Volley.newRequestQueue(context);
         String url = "https://api.ebay.com/buy/browse/v1/item_summary/search?q="
-//                + search.getSearch()
-                + "&limit=50/Authorizantion=" + TOKEN;
+                + keyword.toString()
+                + "&limit=10/Authorizantion=" + TOKEN;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     JSONObject object = response.getJSONObject("itemSummaries");
                     System.out.println(response);
-                    String name = "title";
-                    String id = "itemId";
+                    /*
+                    * FIIIIIIIIIIIIIXXXXXXXXXXXXXX MEEEEEEEEEEEEEEEEE HEEEEEEEEEEEEEEEEERERERERERERER
+                     */
+                    String name = object.getString("title");
+                    String id = object.getString("itemId");
                     viewHolder.searchName.setText(name);
                     viewHolder.itemId.setText(id);
                 }catch (Exception e){
@@ -95,10 +93,13 @@ public class CustomSearchShoeAdapter extends RecyclerView.Adapter<CustomSearchSh
             }
         });
         requestQueue.add(request);
+
+        Ebay ebay = ebays.get(i);
+        //FIX ME HERE
+//        viewHolder.searchName.setText(ebay.getName());
+//        viewHolder.itemId.setText(ebay.getItemId());
+        //viewHolder.searchShoe.setText(ebay.getImage());
     }
-
-
-
 
     @Override
     public int getItemCount() {

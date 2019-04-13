@@ -77,27 +77,6 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         fab.hide();
-        final SearchView searchView = view.findViewById(R.id.searchView);
-        final String searchWord;
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Search search = new Search();
-                query = searchView.getQuery().toString();
-                search.setSearch(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-//               newText = searchView.getQuery().toString();
-//                System.out.println(newText);
-                return false;
-            }
-        });
 
         DatabaseHandler db = new DatabaseHandler(getContext());
         RecyclerView list = view.findViewById(R.id.searchList);
@@ -106,7 +85,6 @@ public class SearchFragment extends Fragment {
         CustomSearchShoeAdapter adapter = new CustomSearchShoeAdapter(ebays, getContext());
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         return view;
     }
