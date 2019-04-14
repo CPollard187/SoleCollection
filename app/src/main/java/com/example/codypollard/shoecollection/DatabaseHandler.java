@@ -184,13 +184,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Search getSearch(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Search search = null;
+        Search search = new Search();
         Cursor cursor = db.query(TABLE_SEARCH,
                 new String[]{COLUMN_ID, COLUMN_KEYWORD},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null,null);
-        if(cursor.moveToFirst()){
+        if(cursor.moveToLast()){
             search = new Search(
                     cursor.getString(0));
         }

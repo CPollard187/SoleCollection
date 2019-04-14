@@ -1,6 +1,7 @@
 package com.example.codypollard.shoecollection;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,21 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.codypollard.shoecollection.JavaBeans.Ebay;
 import com.example.codypollard.shoecollection.JavaBeans.Search;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.codypollard.shoecollection.MainActivity.fab;
 
@@ -54,8 +61,7 @@ public class SearchFragment extends Fragment {
 
     ArrayList<Ebay> ebayList = new ArrayList<>();
     RequestQueue requestQueue;
-    String TOKEN = "v^1.1#i^1#r^0#p^3#f^0#I^3#t^H4sIAAAAAAAAAOVYa2wUVRTu9AUNFgnII8THMtAqktmdOzu7szN2V7ft1q70ZbcUbMTmzsyddujszGZmlnY1alNIUSKJYtSkiTxiQmKoAiGEBCSKCQ8boqE8fki0RAmQGBITDAT5oXe2r21VoC0/NnF/7GbOPa/vO+fcvXfo7sKiZ3ure28XE7Nyd3XT3bkEAebQRYUFq+bm5S4tyKEzFIhd3Su683vyrpdZMK4lhEZkJQzdQq6uuKZbQloYJJOmLhjQUi1Bh3FkCbYkxMK1NQLjpoWEadiGZGikK1oZJEXklyGCkuj38jLn82GpPuqzyQiSEvRyiPYzoigxPp4T8bplJVFUt2yo20GSoQFP0SwFQBPNCIxPYIHbD9gW0tWMTEs1dKzipslQOl0hbWtm5HrvVKFlIdPGTshQNFwVqw9HKyN1TWWeDF+hER5iNrST1sSnCkNGrmaoJdG9w1hpbSGWlCRkWaQnNBxholMhPJrMNNJPUy0BH+C8Xk70ssAXUB4OlVWGGYf2vfNwJKpMKWlVAem2aqfuxyhmQ9yAJHvkqQ67iFa6nJ+Xk1BTFRWZQTJSHn5lTSzSSLpiDQ2msVGVkewgBTzrZ2kQCDBkSDIShtYKuJEYw45GGJ4UpMLQZdXhy3LVGXY5wgmjybSADFqwUr1eb4YV20kmU48do49uceo5XMCk3a47JUVxzIEr/Xh/8ke7Ybz+D60fZIXx0ggADgIWsuDf+8GZ9an1RMgpS7ihwePkgkSYouLQ7EB2QoMSoiRMbzKOTFUWvD6cQEBBlOznFYrlFYUSfbKfAgpCNEJ45PnA/6Q1bNtUxaSNxtpj8kIaX5B06BRUqAi20YH0plQCkZM10xvOSE90WUGy3bYTgsfT2dnp7vS6DbPNw9A08KyrrYlJ7SgOyTFd9f7KlJruDglhK0sVbJxAkOzCzYeD621kqDFS1RiJVbc21a+O1I027oTMQpOl/4E0hquDGgxNlVLZBdFryg3QtFMxpGlYMCOQlgMye+A5s+5AdHxY2AlMqG6n49ySEfcYEG9Yjqg1nbXrQZQ8FibJPTz+mCu3iaBs6FpqOsZTsFH1jXiEDDM1nYBjxlOwgZJkJHV7OuFGTKdgoSQ1RdU0Z5eYTsAM86mkqUMtZauSNRZyRo0fTiSi8XjShqKGonL2TEB6wAM8x7AzhpdlqPBhNIW3U42KGRqqMDRn1jWqobGS4jjeD2VZxn9RCJ/BA/zMsNe2qVkGHeB7RcAXYAI+mvbOCFsl2phtdZVEBLkAy1ABhE9SbAACCtKcRLGKSEusV+QZZWb1rNBUvFVk31Gj2rBsJM8MGj4OZxeo9DyOjKMkc4hCkJcplmMgJQL8xfN+/kEhjwvyweTD5T+uFJ6J1/lQTvoDeohDdA9xIJcgaA9dApbTywrz1uTnPbLUUm3kxgdRt6W26fiWaiJ3B0oloGrmFhLq9sEtFzJeIOxaTy8Ze4VQlAfmZLxPoB8fXykAjy4uBjzNAkAzjI8FLfTy8dV8sCj/sdcXvn3+1Wt/XC7b077ki6ddC25vI7rp4jElgijIye8hcpZVN827dEQ/Ud7cfHLbZ9z8tXt3hvf/+eQPCyp2fx89OPj5N1t6362+HrkmXqxIrV1dvrK4v3TW3PLST74+1z/4ZclXZ49Ffiy6fuGnu8wdYs/ygat6h564u2/Hme4rhwa+W3jm97+OUgOnD7ZaHxzduRi8tKhjcEHL+cUDl9ftOzX03v7+Rcc3XelNlPRduvmRNjRUSuzt39pXX9C6edPKPcc3PXXw4u2tZ0r6Krp6j+a0N86O3YIfn0K/xU6cfP/Gu6e3z7t565c3Dz2XXHGu/+ynZYdXacZqsT4RfuJbfX3fkResO+/M375Zqar5OTy048VnavfXrDS33tgQGNhdWvjhG88feOu1tg2/zj529fBw+f4GfzUWd9oRAAA=";
-
+    String TOKEN = "CodyPoll-SoleColl-PRD-7796addd9-0e9d7894";
     private OnFragmentInteractionListener mListener;
 
     public SearchFragment() {
@@ -98,51 +104,96 @@ public class SearchFragment extends Fragment {
 
         Search search = new Search();
         DatabaseHandler db = new DatabaseHandler(getContext());
+
         Search keyword = db.getSearch(search.getId());
+        System.out.println("Search word " + keyword);
 
         requestQueue = Volley.newRequestQueue(getContext());
-        String url = "https://api.ebay.com/buy/browse/v1/item_summary/search?q="
-                + keyword.toString()
-                + "&limit=10/Authorizantion=" + TOKEN;
-        System.out.println(url);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>()
-                {
+//        String url = "https://api.ebay.com/buy/browse/v1/item_summary/search?q=drone&limit=3";{
+//            headers: {
+//                    Authoization: "Bearer v^1.1#i^1#I^3#p^3#r^0#f^0#t^H4sIAAAAAAAAAOVYb2wTZRhft25kMsDIX1Gw3CRBzLXvXa+9P6FNytq5KWzdOhAwMN/evTeOXe/q3XVbE2fqVEiUZXFBPuhMRkwgxgioQQmKKDF+wQhijBOjIESBhAiJGBJA8L2u27qpwDY+NLEf2rzP+/z7/Z7nefvegUxZ+dLNNZuvTHNMKe7PgEyxw0FNBeVlpY9OLymeX1oE8hQc/ZmHM86uknPLTJhQk0IjMpO6ZiJXR0LVTCErDBApQxN0aCqmoMEEMgVLFGKhlSsE2g2EpKFbuqirhKs2HCAYGkBO9jJ+iWFAXPJhqTbks0kPED6fzPsQJ8W9FCOxcT/eN80UqtVMC2pWgKABxZOAISmmiQYC8AvA6+Z5fh3hWo0MU9E1rOIGRDCbrpC1NfJyvXWq0DSRYWEnRLA2VB2rD9WGI3VNyzx5voI5HmIWtFLm6FWVLiHXaqim0K3DmFltIZYSRWSahCc4GGG0UyE0lMwE0s9Szcs+IHoBoEUOQkDRd4XKat1IQOvWedgSRSLlrKqANEux0rdjFLMR34REK7eqwy5qwy77pyEFVUVWkBEgIstDa1fFIo2EKxaNGnqbIiHJRkrxjJ8BFMfRRFDUk7raTLG5GIOOcgyPCVKla5Ji82W66nRrOcIJo1G0ULzgy6MFK9Vr9UZItuxk8umjh+nzr7PrOVjAlLVRs0uKEpgDV3Z5e/KHumGk/nerH/yQETnAUpCFIiuy7L/3gz3r4+uJoF2WUDTqsXNBcZgmE9BoRVZShSIiRUxvKoEMRRK8Ppn2cjIiJT8vkwwvy2TcJ/lJSkYIIBSPizz3P2kNyzKUeMpCw+0xdiOLL0DYdAoKlAVLb0VaUzqJiLGa2QMn1xMdZoDYaFlJweNpb293t3vdutHioQGgPGtWroiJG1ECEsO6yu2VSSXbHSLCVqYiWDiBANGBmw8H11qIYGOkujESq2luqn8iUjfUuKMyC46V/gfSGK4OiuqqIqYLC6LXkKLQsNIxpKpYMCmQpg2ycODZs25DtH2Y2AlMKm6749yinvDoEB9Ytqg5m7XrTpQ8JibJPTj+mCu3gaCka2p6IsbjsFG0NjxCupGeSMBh43HYQFHUU5o1kXA503FYyClVVlTVPiUmEjDPfDxpalBNW4poDoecVOOHksnaRCJlwbiKaqXCmYDsgHM8SzOThldgqPBlNI2PU5WM6Sqq0lV71lUy2hgmWZb3Q0mS8F8U4iWW4yeHfWWLUmDQKdbn43wczfkA8E4KWxi1FVpdxTiCLMfQJIfwTYrhIEVCwIokI8eByHjjPC1Prp5VqoKPisK7atTopoWkyUHD1+HCApWdx9w4ihKLSAR5iWRYGpJxCn/hWyN/p5BHBE5q7OXyH48UntGP88Gi7IfqcuwDXY73ih0O4AGLqUqwqKxklbOkYr6pWMiNL6JuU2nR8FOqgdytKJ2EilFc5lB6j2/5Lu8FQv96MG/4FUJ5CTU1730CeHBkp5SaMXcaxQOGYjBtfsCsA5Uju05qjnPWq2s3wPINnjPfbrh+fW+kbWfFW688BqYNKzkcpUXOLkfRzJaD95z8vPvG8U5h/daORVf3+w48MOfY9F0nOi+9efWpdx/vuvdSr+/wjF3FR/teeKgZfe08+1I4k3H91P0DcW3gq75Pvzi54OW+08kPzj678Jsvrwx07X7n0l/nlzcWPfKMAsvvO8Rv3XnsQi9dfXn3GmdX5amqssCUPRdrZu3e1jYPCtv3HBz48P65Pd07uOdLTiRTFYd/K91yiKI+m3l0b7h8//ye1xfM3n9jxyfb+jr9Z0oafonMu7jrSffJC93bFzRVHPmjs7n/98NbFv768WU/8eKAsORAz5Im6H27pxd89PS51vMNBknPadj3I7rYfPo58Y2li4/4v7/2fpj98+a+Uz/PbknfLH/N3DRzsHx/A+aL0efaEQAA";
+//                }
+//        };
+            String url = "https://api.ebay.com/shopping?callname=FindProducts&responseencoding=XML&appid=" + TOKEN + "&siteid=0&QueryKeywords=nikeshoes&version=863";
+
+//                "https://api.ebay.com/buy/browse/v1/item_summary/search?q=shoes"
+//                //+ keyword.toString()
+//                + "&limit=10/oauth2/authorize?" + TOKEN ;
+        System.out.println("Ebay API " + url);
+
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(String response)
-                    {
-                        //final Ebay ebay = new Ebay();
-                        JSONObject object;
-                        try
-                        {
-                            object = new JSONObject(response);
-
-                            JSONArray jsonArray = object.getJSONArray("itemSummaries");
-
-                            for (int i = 0; i < jsonArray.length(); i++){
-
-                                JSONObject ebay = jsonArray.getJSONObject(i);
-
-                                ebayList.add(new Ebay(
-                                        ebay.getString("title"),
-                                        ebay.getString("itemId"),
-                                        ebay.getString("imageUrl")
-                                ));
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for(int i=0; i < response.length(); i++) {
+                                JSONObject object = response.getJSONObject(i);
+                                System.out.println(response);
+                                String name = object.getString("name");
+                                String itemId = object.getString("itemId");
+                                String image = object.getString("imageUrl");
                             }
-                        }
-                        catch (JSONException e)
-                        {
+                        }catch (Exception e){
                             e.printStackTrace();
+                            System.out.println("Catch Error" + e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error.getLocalizedMessage());
+                System.out.println("Volley Error " + error.getLocalizedMessage());
             }
-        });
 
+            //Adding custom headers
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String>  params = new HashMap<String, String>();
+//                params.put("Authoization: Bearer", "v^1.1#i^1#I^3#p^3#r^0#f^0#t^H4sIAAAAAAAAAOVYb2wTZRhft25kMsDIX1Gw3CRBzLXvXa+9P6FNytq5KWzdOhAwMN/evTeOXe/q3XVbE2fqVEiUZXFBPuhMRkwgxgioQQmKKDF+wQhijBOjIESBhAiJGBJA8L2u27qpwDY+NLEf2rzP+/z7/Z7nefvegUxZ+dLNNZuvTHNMKe7PgEyxw0FNBeVlpY9OLymeX1oE8hQc/ZmHM86uknPLTJhQk0IjMpO6ZiJXR0LVTCErDBApQxN0aCqmoMEEMgVLFGKhlSsE2g2EpKFbuqirhKs2HCAYGkBO9jJ+iWFAXPJhqTbks0kPED6fzPsQJ8W9FCOxcT/eN80UqtVMC2pWgKABxZOAISmmiQYC8AvA6+Z5fh3hWo0MU9E1rOIGRDCbrpC1NfJyvXWq0DSRYWEnRLA2VB2rD9WGI3VNyzx5voI5HmIWtFLm6FWVLiHXaqim0K3DmFltIZYSRWSahCc4GGG0UyE0lMwE0s9Szcs+IHoBoEUOQkDRd4XKat1IQOvWedgSRSLlrKqANEux0rdjFLMR34REK7eqwy5qwy77pyEFVUVWkBEgIstDa1fFIo2EKxaNGnqbIiHJRkrxjJ8BFMfRRFDUk7raTLG5GIOOcgyPCVKla5Ji82W66nRrOcIJo1G0ULzgy6MFK9Vr9UZItuxk8umjh+nzr7PrOVjAlLVRs0uKEpgDV3Z5e/KHumGk/nerH/yQETnAUpCFIiuy7L/3gz3r4+uJoF2WUDTqsXNBcZgmE9BoRVZShSIiRUxvKoEMRRK8Ppn2cjIiJT8vkwwvy2TcJ/lJSkYIIBSPizz3P2kNyzKUeMpCw+0xdiOLL0DYdAoKlAVLb0VaUzqJiLGa2QMn1xMdZoDYaFlJweNpb293t3vdutHioQGgPGtWroiJG1ECEsO6yu2VSSXbHSLCVqYiWDiBANGBmw8H11qIYGOkujESq2luqn8iUjfUuKMyC46V/gfSGK4OiuqqIqYLC6LXkKLQsNIxpKpYMCmQpg2ycODZs25DtH2Y2AlMKm6749yinvDoEB9Ytqg5m7XrTpQ8JibJPTj+mCu3gaCka2p6IsbjsFG0NjxCupGeSMBh43HYQFHUU5o1kXA503FYyClVVlTVPiUmEjDPfDxpalBNW4poDoecVOOHksnaRCJlwbiKaqXCmYDsgHM8SzOThldgqPBlNI2PU5WM6Sqq0lV71lUy2hgmWZb3Q0mS8F8U4iWW4yeHfWWLUmDQKdbn43wczfkA8E4KWxi1FVpdxTiCLMfQJIfwTYrhIEVCwIokI8eByHjjPC1Prp5VqoKPisK7atTopoWkyUHD1+HCApWdx9w4ihKLSAR5iWRYGpJxCn/hWyN/p5BHBE5q7OXyH48UntGP88Gi7IfqcuwDXY73ih0O4AGLqUqwqKxklbOkYr6pWMiNL6JuU2nR8FOqgdytKJ2EilFc5lB6j2/5Lu8FQv96MG/4FUJ5CTU1730CeHBkp5SaMXcaxQOGYjBtfsCsA5Uju05qjnPWq2s3wPINnjPfbrh+fW+kbWfFW688BqYNKzkcpUXOLkfRzJaD95z8vPvG8U5h/daORVf3+w48MOfY9F0nOi+9efWpdx/vuvdSr+/wjF3FR/teeKgZfe08+1I4k3H91P0DcW3gq75Pvzi54OW+08kPzj678Jsvrwx07X7n0l/nlzcWPfKMAsvvO8Rv3XnsQi9dfXn3GmdX5amqssCUPRdrZu3e1jYPCtv3HBz48P65Pd07uOdLTiRTFYd/K91yiKI+m3l0b7h8//ye1xfM3n9jxyfb+jr9Z0oafonMu7jrSffJC93bFzRVHPmjs7n/98NbFv768WU/8eKAsORAz5Im6H27pxd89PS51vMNBknPadj3I7rYfPo58Y2li4/4v7/2fpj98+a+Uz/PbknfLH/N3DRzsHx/A+aL0efaEQAA");
+//                params.put("Content-Type", "application/json");
+//                return params;
+//            }
+
+        });
+        requestQueue.add(request);
+        System.out.println("Request: " + request);
+//        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                new Response.Listener<JsonObject>()
+//                {
+//                    @Override
+//                    public void onResponse(JsonObject response)
+//                    {
+//                        //final Ebay ebay = new Ebay();
+//                        //JSONObject object;
+//
+//                        try
+//                        {
+//                            JsonObject object = new JsonObject(response);
+//
+//                            JSONArray jsonArray = object.getAsJsonArray(response);
+//
+//                            for (int i = 0; i < jsonArray.length(); i++){
+//
+//                                JSONObject ebay = jsonArray.getJSONObject(i);
+//
+//                                ebayList.add(new Ebay(
+//                                        ebay.getString("title"),
+//                                        ebay.getString("itemId"),
+//                                        ebay.getString("imageUrl")
+//                                ));
+//                            }
+//                        }
+//                        catch (JSONException e)
+//                        {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                System.out.println(error.getLocalizedMessage());
+//            }
+//        });
 
 
         //DatabaseHandler db = new DatabaseHandler(getContext());

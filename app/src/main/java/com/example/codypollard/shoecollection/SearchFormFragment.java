@@ -95,6 +95,7 @@ public class SearchFormFragment extends Fragment {
                 //Call the addSearch function
                 //Populates the db with the info from the form
                 db.addSearch(search);
+                System.out.println("SearchFormFragment " + search);
                 db.close();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.content, new SearchFragment());
