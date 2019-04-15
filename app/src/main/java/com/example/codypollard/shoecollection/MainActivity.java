@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
                     UpdateShoeFragment.OnFragmentInteractionListener,
                     SearchFragment.OnFragmentInteractionListener,
                     SearchFormFragment.OnFragmentInteractionListener,
-                    TestFragment.OnFragmentInteractionListener {
+                    CreditsFragment.OnFragmentInteractionListener {
 
     FragmentManager fm;
     public static FloatingActionButton fab;
@@ -123,8 +123,12 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.content, new AddAShoeFragment())
                     .commit();
         }else if (id == R.id.nav_searchShoe) {
+            fm.beginTransaction()
+                    .replace(R.id.content, new SearchFormFragment())
+                    .commit();
+        }else if (id == R.id.nav_credits) {
                 fm.beginTransaction()
-                        .replace(R.id.content, new SearchFormFragment())
+                        .replace(R.id.content, new CreditsFragment())
                         .commit();
         } else if (id == R.id.nav_email) {
             String [] email = {"cody.pollard01@stclairconnect.ca"};

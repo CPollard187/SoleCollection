@@ -2,6 +2,7 @@ package com.example.codypollard.shoecollection;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,15 +25,16 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
     ArrayList<Shoe> shoeList;
     private LinearLayout shoeImage;
 
-//    LayoutInflater layoutInflater;
+    LayoutInflater layoutInflater;
 
     public MyCustomPagerAdapter(FragmentManager fm, Context context, ArrayList<Shoe> shoeList) {
         super(fm);
         //System.out.println("Constructor");
         this.context = context;
         this.shoeList = shoeList;
-//        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
@@ -42,21 +44,6 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 
     public Fragment getItem(int position) {
         Shoe shoe = shoeList.get(position);
-
-//        if(shoeImage.getChildCount() == 0) {
-//            //Grab all the photos that match the ID of the current shoe
-//            DatabaseHandler db = new DatabaseHandler(context);
-//            Shoe pics = db.getShoe(shoe.getId());
-////            for (int j = 0; j < pics.size(); j++) {
-//            if(pics != null){
-//                ImageView image = new ImageView(context);
-//                File pic = new File(pics.getPicture());
-//                Picasso.with(context).load(pic)
-//                        .resize(400, 280)
-//                        .centerCrop().into(image);
-//                shoeImage.addView(image);
-//          }
- //       }
         //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
         //Shoe shoe = new Shoe();
         return FavShoeFragment.newInstance(
@@ -89,3 +76,18 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 //    public void destroyItem(ViewGroup container, int position, Object object) {
 //        container.removeView((LinearLayout) object);
 //    }
+
+//        if(shoeImage.getChildCount() == 0) {
+//            //Grab all the photos that match the ID of the current shoe
+//            DatabaseHandler db = new DatabaseHandler(context);
+//            Shoe pics = db.getShoe(shoe.getId());
+////            for (int j = 0; j < pics.size(); j++) {
+//            if(pics != null){
+//                ImageView image = new ImageView(context);
+//                File pic = new File(pics.getPicture());
+//                Picasso.with(context).load(pic)
+//                        .resize(400, 280)
+//                        .centerCrop().into(image);
+//                shoeImage.addView(image);
+//          }
+//       }

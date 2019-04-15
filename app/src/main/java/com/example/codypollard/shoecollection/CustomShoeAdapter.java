@@ -113,6 +113,7 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             //Grab all the photos that match the ID of the current shoe
             DatabaseHandler db = new DatabaseHandler(context);
             Shoe pics = db.getShoe(shoe.getId());
+            System.out.println("Pics =  SHoe Adapter" + pics);
 //            for (int j = 0; j < pics.size(); j++) {
             if(pics != null){
                 ImageView image = new ImageView(context);

@@ -1,6 +1,7 @@
 package com.example.codypollard.shoecollection;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,12 +15,12 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TestFragment.OnFragmentInteractionListener} interface
+ * {@link CreditsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TestFragment#newInstance} factory method to
+ * Use the {@link CreditsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TestFragment extends Fragment {
+public class CreditsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +32,7 @@ public class TestFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public TestFragment() {
+    public CreditsFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +42,11 @@ public class TestFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TestFragment.
+     * @return A new instance of fragment CreditsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TestFragment newInstance(String param1, String param2) {
-        TestFragment fragment = new TestFragment();
+    public static CreditsFragment newInstance(String param1, String param2) {
+        CreditsFragment fragment = new CreditsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,15 +67,76 @@ public class TestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_test, container, false);
-        final Button tweet = view.findViewById(R.id.test);
-        tweet.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_credits, container, false);
+
+        //Send you to volley docs
+        Button volley = view.findViewById(R.id.Volley);
+        volley.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TweetComposer.Builder builder = new TweetComposer.Builder(getContext())
-                        .text("just setting up my Twitter Kit.");
-//                        .image(imageUri);
-                builder.show();
+                String url = "https://developer.android.com/training/volley";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        //Send you to volley docs
+        Button ebay = view.findViewById(R.id.Ebay);
+        ebay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://developer.ebay.com/";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        //Send you to volley docs
+        Button twitter = view.findViewById(R.id.Twitter);
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://developer.twitter.com/en/docs.html";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        //Send you to volley docs
+        Button anim = view.findViewById(R.id.Animation);
+        anim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://github.com/wajahatkarim3/EasyFlipViewPager";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        //Send you to volley docs
+        Button logo = view.findViewById(R.id.LogoCreator);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.designevo.com/logo-maker/";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+        //Send you to volley docs
+        Button page = view.findViewById(R.id.Indicator);
+        page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://github.com/romandanylyk/PageIndicatorView";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
             }
         });
         return view;
