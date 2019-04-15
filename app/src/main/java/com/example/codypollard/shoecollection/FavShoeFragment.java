@@ -39,6 +39,8 @@ public class FavShoeFragment extends Fragment {
     private String brand;
     private String price;
     private String shoeImage;
+    private LinearLayout shoeLayout;
+    private int i;
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,6 +86,7 @@ public class FavShoeFragment extends Fragment {
         Shoe shoe = new Shoe();
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<Shoe> shoeList = db.getAllShoes();
+        shoeLayout = (LinearLayout) view.findViewById(R.id.shoeImage);
         if(brand != null){
             TextView brandText = view.findViewById(R.id.brandText);
             brandText.setText(brand);
@@ -99,24 +102,29 @@ public class FavShoeFragment extends Fragment {
             priceText.setText(price);
         }
         if(shoeImage != null) {
-            System.out.println("Shoe Image = " + shoeImage);
-            LinearLayout shoeImage = new LinearLayout(getContext());
-            shoeImage.setVisibility(View.VISIBLE);
-            if (shoeImage.getChildCount() == 0) {
-                Shoe pics = db.getShoe(shoe.getId());
-            if (pics != null) {
-                ImageView image = new ImageView(getContext());
-                File pic = new File(pics.getPicture());
-                Picasso.with(getContext()).load(pic)
-        //              .resize(400, 280)
-                        .centerCrop().into(image);
-                shoeImage.addView(image);
+            shoe = shoeList.get(i);
+               System.out.println("Shoe Image = " + shoeImage);
+                LinearLayout shoeLayout = new LinearLayout(getContext());
+                shoeLayout.setVisibility(View.VISIBLE);
+                if (shoeLayout.getChildCount() == 0) {
+                    //Should be 0
+                    //System.out.println(shoeImage.getChildCount() + " = shoe image count");
+                    Shoe pics = db.getShoe(shoe.getId());
+                    System.out.println("Pics = " + pics);
+                    if (pics != null) {
+                        ImageView image = new ImageView(getContext());
+                        System.out.println(image + " = image");
+                        File pic = new File(shoe.getPicture());
+                        System.out.println("Pics FavShoe = " + pic);
+                        Picasso.with(getContext()).load(pic)
+                                .resize(200, 200)
+                                .centerCrop().into(image);
+                        shoeLayout.addView(image);
+                        //System.out.println("Shoelayout = " + shoeLayout);
+                    }
                 }
             }
-        }
         db.close();
-
-
         return view;
     }
 

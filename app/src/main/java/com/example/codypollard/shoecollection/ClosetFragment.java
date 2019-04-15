@@ -93,7 +93,7 @@ public class ClosetFragment extends Fragment {
         final TextView name = view.findViewById(R.id.nameText);
         final TextView brand = view.findViewById(R.id.brandText);
         final TextView price = view.findViewById(R.id.priceText);
-        final LinearLayout shoeImage = view.findViewById(R.id.shoeImage);
+        //final LinearLayout shoeImage = view.findViewById(R.id.shoeImage);
 
         myCustomPagerAdapter = new MyCustomPagerAdapter(getChildFragmentManager(), getContext(), shoeList);
         System.out.println(shoeList.size());

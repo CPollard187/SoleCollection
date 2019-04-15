@@ -14,15 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="40dp">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:cropToPadding="false"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
+        android:padding="40dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
