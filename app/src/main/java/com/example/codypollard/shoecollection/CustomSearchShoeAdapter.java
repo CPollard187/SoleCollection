@@ -71,50 +71,50 @@ public class CustomSearchShoeAdapter extends RecyclerView.Adapter<CustomSearchSh
         Search keyword = db.getSearch(search.getId());
 
 
-//        requestQueue = Volley.newRequestQueue(context);
-//        String url = "https://api.ebay.com/buy/browse/v1/item_summary/search?q="
-//                + keyword.toString()
-//                + "&limit=10/Authorizantion=" + TOKEN;
-//        System.out.println(url);
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                new Response.Listener<String>()
-//                {
-//                    @Override
-//                    public void onResponse(String response)
-//                    {
-//                        //final Ebay ebay = new Ebay();
-//                        DatabaseHandler db = new DatabaseHandler(context);
-//
-//                        JSONObject object;
-//                        try
-//                        {
-//                            object = new JSONObject(response);
-//
-//                            JSONArray jsonArray = object.getJSONArray("itemSummaries");
-//
-//                            for (int i = 0; i < jsonArray.length(); i++){
-//
-//                                JSONObject ebay = jsonArray.getJSONObject(i);
-//
-//                                ebays.add(new Ebay(
-//                                        ebay.getString("title"),
-//                                        ebay.getString("itemId"),
-//                                        ebay.getString("imageUrl")
-//                                ));
-//                            }
-//                        }
-//                        catch (JSONException e)
-//                        {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//            System.out.println(error.getLocalizedMessage());
-//            }
-//        });
+        requestQueue = Volley.newRequestQueue(context);
+        String url = "https://api.ebay.com/buy/browse/v1/item_summary/search?q="
+                + keyword.toString()
+                + "&limit=10/Authorization=" + TOKEN;
+        System.out.println(url);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        //final Ebay ebay = new Ebay();
+                        DatabaseHandler db = new DatabaseHandler(context);
+
+                        JSONObject object;
+                        try
+                        {
+                            object = new JSONObject(response);
+
+                            JSONArray jsonArray = object.getJSONArray("itemSummaries");
+
+                            for (int i = 0; i < jsonArray.length(); i++){
+
+                                JSONObject ebay = jsonArray.getJSONObject(i);
+
+                                ebays.add(new Ebay(
+                                        ebay.getString("title"),
+                                        ebay.getString("itemId"),
+                                        ebay.getString("imageUrl")
+                                ));
+                            }
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            System.out.println(error.getLocalizedMessage());
+            }
+        });
 
         Ebay ebay = ebays.get(i);
         //FIX ME HERE

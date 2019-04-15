@@ -104,7 +104,7 @@ public class FavShoeFragment extends Fragment {
         if(shoeImage != null) {
             shoe = shoeList.get(i);
                System.out.println("Shoe Image = " + shoeImage);
-                LinearLayout shoeLayout = new LinearLayout(getContext());
+                //LinearLayout shoeImage = new LinearLayout(getContext());
                 shoeLayout.setVisibility(View.VISIBLE);
                 if (shoeLayout.getChildCount() == 0) {
                     //Should be 0
@@ -117,7 +117,7 @@ public class FavShoeFragment extends Fragment {
                         File pic = new File(shoe.getPicture());
                         System.out.println("Pics FavShoe = " + pic);
                         Picasso.with(getContext()).load(pic)
-                                .resize(200, 200)
+                                .resize(800, 900)
                                 .centerCrop().into(image);
                         shoeLayout.addView(image);
                         //System.out.println("Shoelayout = " + shoeLayout);
