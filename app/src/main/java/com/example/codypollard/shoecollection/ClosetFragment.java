@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -97,6 +98,38 @@ public class ClosetFragment extends Fragment {
         myCustomPagerAdapter = new MyCustomPagerAdapter(getChildFragmentManager(), getContext(), shoeList);
         System.out.println(shoeList.size());
         viewPager.setAdapter(myCustomPagerAdapter);
+
+        //Hit the right arrow to go right
+        ImageButton rightButton = view.findViewById(R.id.goRight);
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int location = viewPager.getCurrentItem();
+                location++;
+                if(location >= myCustomPagerAdapter.getCount()){
+                    viewPager.setCurrentItem(0);
+                }
+                else{
+                    viewPager.setCurrentItem(location);
+                }
+            }
+        });
+        //Hit the left arrow to go left
+        ImageButton leftButton = view.findViewById(R.id.goLeft);
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int location = viewPager.getCurrentItem();
+                location--;
+                if(location >= 0){
+                    viewPager.setCurrentItem(location);
+                }
+                else{
+                    viewPager.setCurrentItem(myCustomPagerAdapter.getCount());
+                }
+            }
+        });
+
 
         db.close();
         Shoe shoe = new Shoe();
