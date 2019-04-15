@@ -98,14 +98,19 @@ public class FavShoeFragment extends Fragment {
                     view.findViewById(R.id.priceText);
             priceText.setText(price);
         }
-        if(shoeImage != null){
+        if(shoeImage != null) {
+            System.out.println("Shoe Image = " + shoeImage);
             LinearLayout shoeImage = new LinearLayout(getContext());
             shoeImage.setVisibility(View.VISIBLE);
-            if(shoeImage.getChildCount() == 0) {
-                for (int j = 0; j < shoeList.size(); j++) {
-                    ImageView image = new ImageView(getContext());
-                    File pic = new File(shoeList.get(j).getPicture());
-                    shoeImage.addView(image);
+            if (shoeImage.getChildCount() == 0) {
+                Shoe pics = db.getShoe(shoe.getId());
+            if (pics != null) {
+                ImageView image = new ImageView(getContext());
+                File pic = new File(pics.getPicture());
+                Picasso.with(getContext()).load(pic)
+        //              .resize(400, 280)
+                        .centerCrop().into(image);
+                shoeImage.addView(image);
                 }
             }
         }

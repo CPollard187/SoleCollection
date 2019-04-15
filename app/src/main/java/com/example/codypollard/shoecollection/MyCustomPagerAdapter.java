@@ -14,12 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MyCustomPagerAdapter extends FragmentPagerAdapter {
     Context context;
     ArrayList<Shoe> shoeList;
+    private LinearLayout shoeImage;
 
 //    LayoutInflater layoutInflater;
 
@@ -38,19 +41,31 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 
 
     public Fragment getItem(int position) {
+        Shoe shoe = shoeList.get(position);
 
+//        if(shoeImage.getChildCount() == 0) {
+//            //Grab all the photos that match the ID of the current shoe
+//            DatabaseHandler db = new DatabaseHandler(context);
+//            Shoe pics = db.getShoe(shoe.getId());
+////            for (int j = 0; j < pics.size(); j++) {
+//            if(pics != null){
+//                ImageView image = new ImageView(context);
+//                File pic = new File(pics.getPicture());
+//                Picasso.with(context).load(pic)
+//                        .resize(400, 280)
+//                        .centerCrop().into(image);
+//                shoeImage.addView(image);
+//          }
+ //       }
         //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
         //Shoe shoe = new Shoe();
-        Shoe shoe = shoeList.get(position);
         return FavShoeFragment.newInstance(
                 shoe.getName(),
                 shoe.getBrand(),
                 shoe.getRetailPrice(),
-
                 shoe.getPicture());
     }
-
-
+}
 //    @Override
 //    public boolean isViewFromObject(View view, Object object) {
 //        return view == ((LinearLayout) object);
@@ -74,4 +89,3 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 //    public void destroyItem(ViewGroup container, int position, Object object) {
 //        container.removeView((LinearLayout) object);
 //    }
-}
