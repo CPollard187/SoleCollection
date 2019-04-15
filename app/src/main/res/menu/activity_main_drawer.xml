@@ -8,43 +8,42 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:font="@font/righteousregular"
-
-            android:title="Home" />
+            android:title="HOME" />
         <item
             android:id="@+id/nav_closet"
             android:font="@font/righteousregular"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Closet" />
+            android:title="CLOSET" />
         <item
             android:id="@+id/nav_collection"
             android:font="@font/righteousregular"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Collection" />
+            android:title="COLLECTION" />
         <item
             android:id="@+id/nav_searchShoe"
             android:font="@font/righteousregular"
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="Search for Shoe" />
+            android:title="SEARCH A SHOE" />
         <item
             android:id="@+id/nav_addashoe"
             android:font="@font/righteousregular"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Add a Shoe" />
+            android:title="ADD A SHOE" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Other">
         <menu>
-            <item
-                android:id="@+id/nav_email"
-                android:font="@font/righteousregular"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Email App Creator" />
-
             <item
             android:id="@+id/nav_credits"
             android:font="@font/righteousregular"
             android:icon="@drawable/ic_bubble_chart_black_24dp"
-            android:title="Credits" />
+            android:title="CREDITS" />
+
+            <item
+                android:id="@+id/nav_email"
+                android:font="@font/righteousregular"
+                android:icon="@drawable/ic_menu_share"
+                android:title="REPORT A BUG" />
 
         </menu>
     </item>
