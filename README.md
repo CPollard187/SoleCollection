@@ -23,6 +23,13 @@
 **Cody Pollard**
 
 ## Credits
+1. https://developer.android.com/training/volley
+1. https://developer.ebay.com/
+1. https://developer.twitter.com/en/docs.html
+1. https://github.com/wajahatkarim3/EasyFlipViewPager
+1. https://www.designevo.com/logo-maker/
+1. https://github.com/romandanylyk/PageIndicatorView
+1. https://square.github.io/picasso/
 
 ## License
 #### Apache 2.0
