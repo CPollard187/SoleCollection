@@ -7,13 +7,13 @@
 *add gif here*
 
 ## Add A Shoe
-![home](https://github.com/CPollard187/ShoeCollection/issues/76)
+
 
 ## Collection
 *add gif here*
 
 ## Closet
-*add gif here*
+![Screenshot_1555373948](https://user-images.githubusercontent.com/43574233/56173509-e52d8700-5fbb-11e9-836b-cd5f6967fa91.png)
 
 ## Author
 **Cody Pollard**
