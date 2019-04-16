@@ -6,11 +6,6 @@
     android:orientation="vertical"
     tools:context=".SearchFragment">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/searchList"
         android:layout_width="match_parent"

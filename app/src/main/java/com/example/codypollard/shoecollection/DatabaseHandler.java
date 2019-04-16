@@ -6,9 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.codypollard.shoecollection.JavaBeans.Ebay;
+import com.example.codypollard.shoecollection.JavaBeans.Search;
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
 import java.util.ArrayList;
+
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -29,6 +36,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     public static final String TABLE_SHOES = "shoe";
+    public static final String TABLE_EBAY = "ebay";
+    public static final String TABLE_SEARCH = "search";
+
     /**
      * CREATE column names
      */
@@ -48,6 +58,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_RETAILPRICE = "retailprice";
     public static final String COLUMN_PICTURE = "picture";
 
+
+    /**
+     * EbayTableColumns
+     */
+
+    public static final String COLUMN_EBAYNAME = "name";
+    public static final String COLUMN_ITEMID = "itemid";
+    public static final String COLUMN_IMAGE = "image";
+
+    /**
+     * SearchTable
+     */
+    public static final String COLUMN_KEYWORD = "keyword";
+
+
     /**
      * Create statements for our tables
      */
@@ -59,6 +84,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COLUMN_COLOURWAY + " TEXT, " + COLUMN_CONDITION + " TEXT,"
             + COLUMN_RETAILPRICE + " TEXT," + COLUMN_PICTURE + " TEXT)";
 
+    public static final String CREATE_SEARCH_TABLE = "CREATE TABLE " +
+            TABLE_SEARCH + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
+            + COLUMN_KEYWORD + " TEXT)";
+
+    public static final String CREATE_EBAY_TABLE = "CREATE TABLE " +
+            TABLE_EBAY + "(" + COLUMN_ID + " INTEGER PRIMARY KEY,"
+            + COLUMN_EBAYNAME + " TEXT, " + COLUMN_ITEMID + " TEXT,"
+            + COLUMN_IMAGE + " TEXT)";
+
+
+
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -67,6 +103,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_SHOE_TABLE);
+        db.execSQL(CREATE_SEARCH_TABLE);
+        db.execSQL(CREATE_EBAY_TABLE);
+
+
     }
 
     @Override
@@ -82,6 +122,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Delete
      */
 
+    // ADD
+
     public void addShoe(Shoe shoe){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -96,6 +138,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_SHOES, null, values);
         db.close();
     }
+
+    public void addSearch(Search search){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_KEYWORD, search.getSearch());
+        db.insert(TABLE_SEARCH, null, values);
+        db.close();
+    }
+
+    public void addEbay(Ebay ebay){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, ebay.getName());
+        values.put(COLUMN_ITEMID, ebay.getItemId());
+        values.put(COLUMN_IMAGE, ebay.getImage());
+        db.insert(TABLE_EBAY, null, values);
+        db.close();
+    }
+
+
 
     /**
      * READ OPERATIONS
@@ -125,6 +187,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return shoe;
     }
 
+    public Search getSearch(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Search search = new Search();
+        Cursor cursor = db.query(TABLE_SEARCH,
+                new String[]{COLUMN_ID, COLUMN_KEYWORD},
+                COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null,null);
+        if(cursor.moveToLast()){
+            search = new Search(
+                    cursor.getString(0));
+        }
+        db.close();
+        return search;
+    }
+
+    public Ebay getEbay(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Ebay ebay = null;
+        Cursor cursor = db.query(TABLE_EBAY,
+                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_ITEMID, COLUMN_IMAGE},
+                COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null,null);
+        if(cursor.moveToFirst()){
+            ebay = new Ebay(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2));
+        }
+        db.close();
+        return ebay;
+    }
+
+
     public ArrayList<Shoe> getAllShoes(){
         ArrayList<Shoe> shoeList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_SHOES;
@@ -146,6 +243,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return shoeList;
+    }
+
+    public ArrayList<Search> getAllSearchs(){
+        ArrayList<Search> searchList = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_SEARCH;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                searchList.add(new Search(
+                        Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1)));
+            }while(cursor.moveToNext());
+        }
+        db.close();
+        return searchList;
+    }
+
+    public ArrayList<Ebay> getAllEbays(){
+        ArrayList<Ebay> ebayList = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_EBAY;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                ebayList.add(new Ebay(
+                        Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3)));
+            }while(cursor.moveToNext());
+        }
+        db.close();
+        return ebayList;
     }
 
     /**

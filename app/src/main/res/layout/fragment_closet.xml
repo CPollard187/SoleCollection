@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ClosetFragment">
 
     <android.support.v4.view.ViewPager
@@ -11,5 +12,36 @@
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
+
+    <ImageButton
+        android:id="@+id/goRight"
+        android:layout_width="32dp"
+        android:layout_height="108dp"
+        android:layout_gravity="center_vertical|right"
+        android:background="@null"
+        android:src="@drawable/ic_chevron_right_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/goLeft"
+        android:layout_width="32dp"
+        android:layout_height="108dp"
+        android:layout_gravity="center_vertical|left"
+        android:background="@null"
+        android:src="@drawable/ic_chevron_left_black_24dp" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="bottom|center_horizontal"
+        app:piv_animationType="scale"
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="true"
+        app:piv_selectedColor="@color/colorPrimary"
+        app:piv_unselectedColor="@color/colorPrimaryDark"
+        app:piv_viewPager="@id/shoeViewPager" />
 
 </FrameLayout>

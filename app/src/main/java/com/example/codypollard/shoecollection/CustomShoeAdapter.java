@@ -22,9 +22,15 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.CustomViewHolder>{
     private ArrayList<Shoe> shoes;
     private Context context;
+    private ImageView image;
 
     public CustomShoeAdapter(@NonNull ArrayList<Shoe> shoes, Context context){
         this.shoes = shoes;
@@ -91,8 +97,8 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             @Override
             public void onClick(View v) {
                 TweetComposer.Builder builder = new TweetComposer.Builder(context)
-                        .text("Check out my newest Pick Up!");
-//                        .image(imageUri);
+                        .text("Check out my newest Pick Up! @SoleCollection1");
+//                        .image(image);
                 builder.show();
             }
         });
@@ -113,9 +119,8 @@ public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.Cu
             //Grab all the photos that match the ID of the current shoe
             DatabaseHandler db = new DatabaseHandler(context);
             Shoe pics = db.getShoe(shoe.getId());
-//            for (int j = 0; j < pics.size(); j++) {
             if(pics != null){
-                ImageView image = new ImageView(context);
+                image = new ImageView(context);
                 File pic = new File(pics.getPicture());
                 Picasso.with(context).load(pic)
                         .resize(400, 280)

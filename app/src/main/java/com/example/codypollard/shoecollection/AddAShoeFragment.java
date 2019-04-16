@@ -39,6 +39,10 @@ import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.
@@ -178,6 +182,11 @@ public class AddAShoeFragment extends Fragment {
                 //Populates the db with the info from the form
                 db.addShoe(shoe);
                 db.close();
+
+                //This Crashes
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.content, new CollectionFragment());
+//                transaction.commit();
                 fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
             }

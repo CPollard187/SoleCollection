@@ -19,6 +19,11 @@ import android.view.MenuItem;
 
 import com.twitter.sdk.android.core.Twitter;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                     HomeFragment.OnFragmentInteractionListener,
@@ -28,7 +33,8 @@ public class MainActivity extends AppCompatActivity
                     FavShoeFragment.OnFragmentInteractionListener,
                     UpdateShoeFragment.OnFragmentInteractionListener,
                     SearchFragment.OnFragmentInteractionListener,
-                    TestFragment.OnFragmentInteractionListener {
+                    SearchFormFragment.OnFragmentInteractionListener,
+                    CreditsFragment.OnFragmentInteractionListener {
 
     FragmentManager fm;
     public static FloatingActionButton fab;
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Start a transactionn and set it to view the HomeFragment
         fm = getSupportFragmentManager();
         if(savedInstanceState == null){
             FragmentTransaction transaction = fm.beginTransaction();
@@ -105,6 +112,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        /**
+         * When you click on a nav bar button it sends you to the corresponding fragment
+         */
+
         if (id == R.id.nav_home) {
             fm.beginTransaction()
             .replace(R.id.content, new HomeFragment())
@@ -119,8 +130,16 @@ public class MainActivity extends AppCompatActivity
             .commit();
         } else if (id == R.id.nav_addashoe) {
             fm.beginTransaction()
-            .replace(R.id.content, new AddAShoeFragment())
-            .commit();
+                    .replace(R.id.content, new AddAShoeFragment())
+                    .commit();
+        }else if (id == R.id.nav_searchShoe) {
+            fm.beginTransaction()
+                    .replace(R.id.content, new SearchFormFragment())
+                    .commit();
+        }else if (id == R.id.nav_credits) {
+                fm.beginTransaction()
+                        .replace(R.id.content, new CreditsFragment())
+                        .commit();
         } else if (id == R.id.nav_email) {
             String [] email = {"cody.pollard01@stclairconnect.ca"};
             Intent intent = new Intent(Intent.ACTION_SENDTO);

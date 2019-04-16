@@ -17,6 +17,11 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,10 +40,13 @@ public class FavShoeFragment extends Fragment {
     private static final String ARG_PARAM4 = "shoeImage";
 
     // TODO: Rename and change types of parameters
+    //Declare Strings and Layouts
     private String name;
     private String brand;
     private String price;
     private String shoeImage;
+    private LinearLayout shoeLayout;
+    private int i;
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,9 +55,7 @@ public class FavShoeFragment extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
+     * These are all of the aspects that are in the viewpager
      * @return A new instance of fragment FavShoeFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -83,35 +89,63 @@ public class FavShoeFragment extends Fragment {
         MainActivity.fab.hide();
         Shoe shoe = new Shoe();
         DatabaseHandler db = new DatabaseHandler(getContext());
+
+        /**
+         * Get All Shoes from the DB
+         * WE need this so we can populate the viewpager
+         */
         ArrayList<Shoe> shoeList = db.getAllShoes();
+
+        /**
+         * This Holds the Image of the Shoe from the DB
+         */
+        shoeLayout = (LinearLayout) view.findViewById(R.id.shoeImage);
+
+        /**
+         * Set the string to the corresponding record from the DB / ShoeList Array
+         */
+
         if(brand != null){
             TextView brandText = view.findViewById(R.id.brandText);
             brandText.setText(brand);
         }
+
         if(name != null){
             TextView nameText =
                     view.findViewById(R.id.nameText);
             nameText.setText(name);
         }
+
         if(price != null){
             TextView priceText =
                     view.findViewById(R.id.priceText);
-            priceText.setText(price);
+            priceText.setText("$" + price);
         }
-        if(shoeImage != null){
-            LinearLayout shoeImage = new LinearLayout(getContext());
-            shoeImage.setVisibility(View.VISIBLE);
-            if(shoeImage.getChildCount() == 0) {
-                for (int j = 0; j < shoeList.size(); j++) {
-                    ImageView image = new ImageView(getContext());
-                    File pic = new File(shoeList.get(j).getPicture());
-                    shoeImage.addView(image);
+        if(shoeImage != null) {
+            //Get the position of the ShoeList
+            shoe = shoeList.get(i);
+            //Make sure the layout will be seen
+                shoeLayout.setVisibility(View.VISIBLE);
+                //If the Layout has nothing in it then do this
+                if (shoeLayout.getChildCount() == 0) {
+                    //Gets the id of that shoes
+                    Shoe pics = db.getShoe(shoe.getId());
+                    //If there is a record there then do this
+                    if (pics != null) {
+                        //Declare an imageview to hold the image from the DB
+                        ImageView image = new ImageView(getContext());
+                        //Get the Picture from the database
+                        File pic = new File(shoe.getPicture());
+                        //Load the picture into Picasso
+                        Picasso.with(getContext()).load(pic)
+                                .resize(800, 900)
+                                .centerCrop().into(image);
+                        //Display it to the screen
+                        shoeLayout.addView(image);
+                    }
                 }
             }
-        }
         db.close();
-
-
         return view;
     }
 

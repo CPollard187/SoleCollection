@@ -2,6 +2,7 @@ package com.example.codypollard.shoecollection;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,22 +15,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
+
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 public class MyCustomPagerAdapter extends FragmentPagerAdapter {
     Context context;
+    //Stores all of the database data from shoes
     ArrayList<Shoe> shoeList;
-
-//    LayoutInflater layoutInflater;
+    private LinearLayout shoeImage;
+    LayoutInflater layoutInflater;
 
     public MyCustomPagerAdapter(FragmentManager fm, Context context, ArrayList<Shoe> shoeList) {
         super(fm);
-        //System.out.println("Constructor");
         this.context = context;
         this.shoeList = shoeList;
-//        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
@@ -39,17 +48,17 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 
     public Fragment getItem(int position) {
 
+        Shoe shoe = shoeList.get(position);
         //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
         //Shoe shoe = new Shoe();
-        Shoe shoe = shoeList.get(position);
+        //Get the string of each corresponding Field
         return FavShoeFragment.newInstance(
                 shoe.getName(),
                 shoe.getBrand(),
                 shoe.getRetailPrice(),
                 shoe.getPicture());
     }
-
-
+}
 //    @Override
 //    public boolean isViewFromObject(View view, Object object) {
 //        return view == ((LinearLayout) object);
@@ -73,4 +82,18 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 //    public void destroyItem(ViewGroup container, int position, Object object) {
 //        container.removeView((LinearLayout) object);
 //    }
-}
+
+//        if(shoeImage.getChildCount() == 0) {
+//            //Grab all the photos that match the ID of the current shoe
+//            DatabaseHandler db = new DatabaseHandler(context);
+//            Shoe pics = db.getShoe(shoe.getId());
+////            for (int j = 0; j < pics.size(); j++) {
+//            if(pics != null){
+//                ImageView image = new ImageView(context);
+//                File pic = new File(pics.getPicture());
+//                Picasso.with(context).load(pic)
+//                        .resize(400, 280)
+//                        .centerCrop().into(image);
+//                shoeImage.addView(image);
+//          }
+//       }

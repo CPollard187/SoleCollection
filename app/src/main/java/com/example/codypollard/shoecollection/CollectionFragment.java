@@ -19,6 +19,10 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,7 +89,7 @@ public class CollectionFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.addToBackStack(null);
-                transaction.replace(R.id.content, new SearchFragment());
+                transaction.replace(R.id.content, new AddAShoeFragment());
                 transaction.commit();
             }
         });
