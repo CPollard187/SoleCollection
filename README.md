@@ -9,15 +9,23 @@
 
 ## Home
 ![Screenshot_1555373953](https://user-images.githubusercontent.com/43574233/56173809-53bf1480-5fbd-11e9-857d-8cf38456d521.png)
+- Displays updates from us to you
+- Showcases some of the users shoes
 
 ## Add A Shoe
 ![Screenshot_1555374010](https://user-images.githubusercontent.com/43574233/56173803-4efa6080-5fbd-11e9-8eb1-7400b2974ad7.png)
+- Fill in the form to add a shoe to your closet and collection
 
 ## Collection
 ![Screenshot_1555373959](https://user-images.githubusercontent.com/43574233/56173811-54f04180-5fbd-11e9-9cf1-e7014d554075.png)
+- Showcases all of your kicks in one spot
+- Update your shoes if you made an error
+- Delete a shoe if you sell it
 
 ## Closet
 ![Screenshot_1555373948](https://user-images.githubusercontent.com/43574233/56173801-4dc93380-5fbd-11e9-9e43-c50070816b56.png)
+- Showcases all of your kicks
+- Displays the Name, Brand, Retail price of that shoe
 
 ## Author
 **Cody Pollard**
