@@ -39,6 +39,10 @@ import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.

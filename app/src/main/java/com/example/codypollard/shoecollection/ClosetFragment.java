@@ -22,6 +22,10 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.

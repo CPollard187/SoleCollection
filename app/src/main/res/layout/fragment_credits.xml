@@ -90,6 +90,18 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/Picasso"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksandregular"
+        android:padding="5dp"
+        android:text="Picasso"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/license"
@@ -109,5 +121,5 @@
         android:paddingTop="10dp"
         android:text="@string/license"
         android:textAlignment="center"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 </LinearLayout>

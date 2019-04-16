@@ -30,6 +30,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class CustomSearchShoeAdapter extends RecyclerView.Adapter<CustomSearchShoeAdapter.CustomViewHolder> {
     private List<Ebay> ebays;
     private Context context;

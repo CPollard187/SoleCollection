@@ -19,6 +19,11 @@ import android.view.MenuItem;
 
 import com.twitter.sdk.android.core.Twitter;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                     HomeFragment.OnFragmentInteractionListener,
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Start a transactionn and set it to view the HomeFragment
         fm = getSupportFragmentManager();
         if(savedInstanceState == null){
             FragmentTransaction transaction = fm.beginTransaction();
@@ -105,6 +111,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        /**
+         * When you click on a nav bar button it sends you to the corresponding fragment
+         */
 
         if (id == R.id.nav_home) {
             fm.beginTransaction()
