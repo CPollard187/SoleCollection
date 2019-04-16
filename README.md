@@ -8,16 +8,16 @@
 - Share you new kicks on twitter.
 
 ## Home
-*add gif here*
+![Screenshot_1555373953](https://user-images.githubusercontent.com/43574233/56173809-53bf1480-5fbd-11e9-857d-8cf38456d521.png)
 
 ## Add A Shoe
-
+![Screenshot_1555374010](https://user-images.githubusercontent.com/43574233/56173803-4efa6080-5fbd-11e9-8eb1-7400b2974ad7.png)
 
 ## Collection
-*add gif here*
+![Screenshot_1555373959](https://user-images.githubusercontent.com/43574233/56173811-54f04180-5fbd-11e9-9cf1-e7014d554075.png)
 
 ## Closet
-![Screenshot_1555373948](https://user-images.githubusercontent.com/43574233/56173759-1490c380-5fbd-11e9-8c4b-773a26db173d.png)
+![Screenshot_1555373948](https://user-images.githubusercontent.com/43574233/56173801-4dc93380-5fbd-11e9-9e43-c50070816b56.png)
 
 ## Author
 **Cody Pollard**
