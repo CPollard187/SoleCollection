@@ -1,4 +1,8 @@
+
+
+
 # Sole Collection
+![shoelogo](https://user-images.githubusercontent.com/43574233/56173681-a6e49780-5fbc-11e9-8318-43c6abee7408.png)
 - Add your amazing shoe collection. 
 - Showoff your favourite kicks in your closet. 
 - Share you new kicks on twitter.
