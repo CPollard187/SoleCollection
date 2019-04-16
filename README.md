@@ -7,7 +7,7 @@
 *add gif here*
 
 ## Add A Shoe
-*add gif here*
+![home](https://github.com/CPollard187/ShoeCollection/issues/76)
 
 ## Collection
 *add gif here*
