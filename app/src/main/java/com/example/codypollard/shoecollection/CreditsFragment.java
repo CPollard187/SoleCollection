@@ -13,6 +13,11 @@ import android.widget.Button;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 /**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
+/**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link CreditsFragment.OnFragmentInteractionListener} interface
@@ -81,7 +86,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        //Send you to volley docs
+        //Send you to Ebay docs
         Button ebay = view.findViewById(R.id.Ebay);
         ebay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +98,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        //Send you to volley docs
+        //Send you to Twitter docs
         Button twitter = view.findViewById(R.id.Twitter);
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +110,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        //Send you to volley docs
+        //Send you to EasyFlipViewPager docs
         Button anim = view.findViewById(R.id.Animation);
         anim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +122,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        //Send you to volley docs
+        //Send you to DesignEvo docs
         Button logo = view.findViewById(R.id.LogoCreator);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +133,7 @@ public class CreditsFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        //Send you to volley docs
+        //Send you to PageIndicator docs
         Button page = view.findViewById(R.id.Indicator);
         page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +144,21 @@ public class CreditsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        //Send you to picasso docs
+        Button picasso = view.findViewById(R.id.Picasso);
+        picasso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://square.github.io/picasso/";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+
+
         return view;
     }
 

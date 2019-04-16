@@ -15,6 +15,10 @@ import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter;
 import com.twitter.sdk.android.tweetui.UserTimeline;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.

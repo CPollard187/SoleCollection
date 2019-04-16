@@ -1,5 +1,10 @@
 package com.example.codypollard.shoecollection.JavaBeans;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class Search {
 
     private int id;

@@ -3,6 +3,11 @@ package com.example.codypollard.shoecollection.JavaBeans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class Shoe implements Parcelable {
 
     private int id;

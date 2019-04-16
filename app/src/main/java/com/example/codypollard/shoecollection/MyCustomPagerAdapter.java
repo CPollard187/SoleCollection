@@ -20,16 +20,20 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class MyCustomPagerAdapter extends FragmentPagerAdapter {
     Context context;
+    //Stores all of the database data from shoes
     ArrayList<Shoe> shoeList;
     private LinearLayout shoeImage;
-
     LayoutInflater layoutInflater;
 
     public MyCustomPagerAdapter(FragmentManager fm, Context context, ArrayList<Shoe> shoeList) {
         super(fm);
-        //System.out.println("Constructor");
         this.context = context;
         this.shoeList = shoeList;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -43,9 +47,11 @@ public class MyCustomPagerAdapter extends FragmentPagerAdapter {
 
 
     public Fragment getItem(int position) {
+
         Shoe shoe = shoeList.get(position);
         //return FavShoeFragment.newInstance(brand.getText().toString(), name.getText().toString(), price.getText().toString(), 0);
         //Shoe shoe = new Shoe();
+        //Get the string of each corresponding Field
         return FavShoeFragment.newInstance(
                 shoe.getName(),
                 shoe.getBrand(),

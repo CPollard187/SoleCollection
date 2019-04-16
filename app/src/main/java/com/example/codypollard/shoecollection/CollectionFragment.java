@@ -19,6 +19,10 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.

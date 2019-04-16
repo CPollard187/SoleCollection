@@ -24,6 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.

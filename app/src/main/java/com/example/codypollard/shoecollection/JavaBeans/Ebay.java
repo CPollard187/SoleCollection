@@ -1,6 +1,12 @@
 package com.example.codypollard.shoecollection.JavaBeans;
 
-import android.media.Image;
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
+
+
 
 public class Ebay {
 

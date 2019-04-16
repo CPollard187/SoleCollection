@@ -22,6 +22,11 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class CustomShoeAdapter extends RecyclerView.Adapter<CustomShoeAdapter.CustomViewHolder>{
     private ArrayList<Shoe> shoes;
     private Context context;

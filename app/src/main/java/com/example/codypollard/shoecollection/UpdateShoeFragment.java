@@ -14,6 +14,10 @@ import android.widget.EditText;
 
 import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +74,10 @@ public class UpdateShoeFragment extends Fragment {
         // Inflate the layout for this fragment
         MainActivity.fab.hide();
         View view = inflater.inflate(R.layout.fragment_update_shoe, container, false);
+
+        /**
+         * Declare All of the Edit Text
+         */
         final EditText brands = view.findViewById(R.id.brandEdit);
         final EditText type = view.findViewById(R.id.typeEdit);
         final EditText name = view.findViewById(R.id.nameEdit);
@@ -78,6 +86,10 @@ public class UpdateShoeFragment extends Fragment {
         final EditText condition = view.findViewById(R.id.conditionEdit);
         final EditText retailPrice = view.findViewById(R.id.retailEdit);
         Button updateButton = view.findViewById(R.id.updateButton);
+
+        /**
+         *  Get the entries of the Card you clicked on and set the Edit texts
+         */
 
         if(mParam1 != null){
             name.setText(mParam1.getName());
@@ -88,6 +100,9 @@ public class UpdateShoeFragment extends Fragment {
             condition.setText(mParam1.getCondition());
             retailPrice.setText(mParam1.getRetailPrice());
         }
+        /**
+         *Sends the user back to the Collection screen with the next data that the user changed
+         */
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override

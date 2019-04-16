@@ -12,6 +12,11 @@ import com.example.codypollard.shoecollection.JavaBeans.Shoe;
 
 import java.util.ArrayList;
 
+/**
+ * Author = Cody Pollard
+ * Date = 2019
+ */
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**
