@@ -3,6 +3,12 @@
 - Showoff your favourite kicks in your closet. 
 - Share you new kicks on twitter.
 
+## Home
+*add gif here*
+
+## Add A Shoe
+*add gif here*
+
 ## Collection
 *add gif here*
 
