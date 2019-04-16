@@ -101,15 +101,21 @@ public class FavShoeFragment extends Fragment {
          */
         shoeLayout = (LinearLayout) view.findViewById(R.id.shoeImage);
 
+        /**
+         * Set the string to the corresponding record from the DB / ShoeList Array
+         */
+
         if(brand != null){
             TextView brandText = view.findViewById(R.id.brandText);
             brandText.setText(brand);
         }
+
         if(name != null){
             TextView nameText =
                     view.findViewById(R.id.nameText);
             nameText.setText(name);
         }
+
         if(price != null){
             TextView priceText =
                     view.findViewById(R.id.priceText);

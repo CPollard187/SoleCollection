@@ -78,11 +78,17 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         MainActivity.fab.hide();
+        //This recyclerview will hold the twitter information
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Show what twitter user i was displayed in the RecyclerView
         final UserTimeline userTimeline = new UserTimeline.Builder()
                 .screenName("SoleCollection1")
                 .build();
+
+        //Set what i want my twitter feed to look like
+        //This is pulled from the twitter API
         final TweetTimelineRecyclerViewAdapter adapter =
                 new TweetTimelineRecyclerViewAdapter.Builder(getContext())
                         .setTimeline(userTimeline)
